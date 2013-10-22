@@ -1,0 +1,169 @@
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1379705430" format="1.1" reprev="7" version="1"}%
+---+!! %TOPIC%
+%SHORTDESCRIPTION%
+
+%TOC%
+
+This extension can be used to copy topics and webs. It allows to select which parts of an item is to copied.
+
+Typical use cases are:
+
+   1 *duplicate topic assets*: copy attachments, comments or preference settings to another existing topic
+   1 *deploy wiki applications*: copy a selection of topics to a target web
+   1 *workflow scenarios*: separate work on a draft topic from its last approved version by creating a copy first and copy the finished draft over as a newly approved version
+   1 *versioned webs*: create a new web for each version of a product
+   1 *merge webs*: create a new web by copying a list of webs to the new web
+   1 *publish content*: from a closed quality-managed authors-only area to a public read-only web
+
+---++ Usage
+
+The work horse for all operation modes is a single service script called =copy=. It takes a =mode= parameter for which
+a copy agent is created to perform the actual operation. The basic skeleton for a form to call the =copy= service looks like this:
+
+<verbatim class="tml">
+<form action="%SCRIPTURLPATH{"copy"}%/%WEB%/%TOPIC%" method="post">
+  <input type="hidden" name="mode" value="topic" />
+  <input type="hidden" name="includepart" value="fields" />
+  <input type="hidden" name="includepart" value="form" />
+
+  <input type="text" name="destination" size="80" />
+
+  <!-- more parameters -->
+
+  <input type="submit" />
+</form>
+</verbatim>
+
+---++ Parameters
+
+---+++ General 
+
+| *Name* | *Description* | *Default* |
+| =mode= | select the type of operation; possible values are: <ul>\
+  <li> =topic=: copy one topic or parts of it to a destination topic </li>\
+  <li> =topics=: copy a list of topic to a destination </li>\
+  <li> =web=: copy a web to a destination </li> </ul> | |
+| =debug= | boolean flag to switch on/off debug output; messages are printed to the error log of the web browser | =off= |
+| =dry= | boolean flag to switch on/off a dry mode; if enabled none of the operations will actually be saved permanently | =off= |
+| =onlynew= | boolean flag to enable/disable a check for the destination to already exist; an exception will be raised if enabled and the target object already; the target object will be overwritten in case it already exists and the flag is disabled; to be precise, a new revision will be created in this case | =on= |
+| =clear= | boolean flag; when enabled data on the destination will be _deleted_ first before copying the source data; (exception: text is always cleared before copying it over); when disabled data of source and destination will be merged | =off= |
+| =redirectto= | topic or url where to redirect the browser after a successful copy operation | |
+
+---+++ Mode: =topic=
+
+| *Name* | *Description* | *Default* |
+| =source= | the source topic to be copied | =%<nop>BASEWEB%.%<nop>BASETOPIC%= |
+| =destination= | the destination topic where to copy =source= to | =source= |
+| =includepart=, =includeparts=  | a list of parts of a topic to be copied; known part-ids are =text=, =attachments=, =all=, =preferences=, =parent=, =form=, =fields=, or any other custom meta data alias such as =comment= from [[Foswiki:Extensions/MetaCommentPlugin][MetaCommentPlugin]] | =all= |
+| =excludepart=, =excludeparts= | a list of parts to exclude from the copy process | |
+| =include&lt;part-id>= | when meta data is named as is the case for =fields= you may specify a regular expression in =includefields= that all fields must match when copying formfields | |
+| =exclude&lt;part-id>= | same as =include&lt;part-id>= but in reverse logic | |
+
+---+++ Mode: =topics=
+
+| *Name* | *Description* | *Default* |
+| =source= | a list of topics to be copied | =%<nop>BASEWEB%.%<nop>BASETOPIC%= |
+| =destination= | the destination where to copy all source topics to; this can either be a web or a topic; in the latter case all source topcis will be copied to the destination | |
+
+All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in the =source= list.
+
+---+++ Mode: =web=
+
+| *Name* | *Description* | *Default* |
+| =source= | the source web to be copied | =%<nop>BASEWEB%= |
+| =destination= | the destination web where to copy all topics of the source web to | |
+| =template= | a template web to be used in case the destination web does not exist yet and needs to be created on the base of a template | =_empty= |
+| =search= | search expression to find topics in the source web. See [[%SYSTEMWEB%.QuerySearch]] for more information | =.*= |
+| =include= | regular expression topics in the source web must match to be included in the copy process | |
+| =exclude= | regluar expression; excludes matching topics from the source web | |
+
+---++ Examples
+
+---+++ Copy one or more topics to a destination
+<form action="%SCRIPTURLPATH{"copy"}%/%WEB%/%TOPIC%" method="post"> 
+<div class="foswikiFormSteps">
+  <input type="hidden" name="mode" value="topics" /> 
+  <input type="hidden" name="redirectto" value="%BASEWEB%.%BASETOPIC%" />
+  <div class="foswikiFormStep">
+    <h3>Source:</h3>
+    <input type="text" name="source" size="50" />
+    <div class="foswikiGrayText">separate multiple topics with a comma</div>
+    <h3>Destination:</h3>
+    <input type="text" name="destination" size="50" />
+    <div class="foswikiGrayText">can be a topic or a web</div>
+  </div>
+  <div class="foswikiFormStep">
+     <h3>Include parts:</h3>
+     <label><input type="checkbox" name="includepart" value="text" /> Text</label> %BR%
+     <label><input type="checkbox" name="includepart" value="attachments" /> Attachments</label> %BR%
+     <label><input type="checkbox" name="includepart" value="preferences" /> Preferences</label>%BR%
+     <label><input type="checkbox" name="includepart" value="parent" /> Parent</label>%BR%
+     <label><input type="checkbox" name="includeparts" value="form, fields" /> <nop>DataForm</label> %BR%
+     <label><input type="checkbox" name="includepart" value="comment" /> Comments</label> 
+     <div class="foswikiGrayText">leave unchecked to copy all</div>
+   </div>
+   <div class="foswikiFormStep">
+     <h3>Exclude parts:</h3>
+     <label><input type="checkbox" name="excludepart" value="text" /> Text</label> %BR%
+     <label><input type="checkbox" name="excludepart" value="attachments" /> Attachments</label> %BR%
+     <label><input type="checkbox" name="excludepart" value="preferences" /> Preferences</label> %BR%
+     <label><input type="checkbox" name="excludepart" value="parent" /> Parent</label>%BR%
+     <label><input type="checkbox" name="excludeparts" value="form, fields" /> <nop>DataForm</label> %BR%
+     <label><input type="checkbox" name="excludepart" value="comment" /> Comments</label>
+   </div>
+   <div class="foswikiFormStep">
+     <h3>Options:</h3>
+     <label><input type="checkbox" name="onlynew" value="off">Allow overwrite</label> %BR%
+     <label><input type="checkbox" name="clear" vlaue="on">Clear before copying</label>
+  </div>
+  <div class="foswikiFormStep">
+    %BUTTON{"Submit" icon="tick" type="submit"}%%CLEAR%
+  </div>
+</div>
+</form> 
+
+%IF{"defined copy_result" then="<div class='foswikiSuccessMessage'>$percntURLPARAM{copy_result}$percnt</div>"}%
+
+---+++ Copy a web but strip all comments
+<form action="%SCRIPTURLPATH{"copy"}%/%WEB%/%TOPIC%" method="post"> 
+<div class="foswikiFormSteps">
+  <input type="hidden" name="mode" value="web" /> 
+  <input type="hidden" name="onlynew" value="off" />
+  <input type="hidden" name="clear=" value="on" />
+  <input type="hidden" name="excludepart" value="comment" />
+  <input type="hidden" name="exclude=" value="^Web.*" />
+  <div class="foswikiFormStep">
+    <h3>Source:</h3>
+    <input type="text" name="source" size="50" />
+    <div class="foswikiGrayText">insert source web</div>
+    <h3>Filter:</h3>
+    <input type="text" name="search" size="50" />
+    <div class="foswikiGrayText">insert a search query</div>
+    <h3>Destination:</h3>
+    <input type="text" name="destination" size="50" />
+    <div class="foswikiGrayText">insert a destination web</div>
+  </div>
+  <div class="foswikiFormStep">
+    %BUTTON{"Submit" icon="tick" type="submit"}%%CLEAR%
+  </div>
+</div>
+</form> 
+
+---++ Installation Instructions
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+| Author(s): | Michael Daum|
+| Copyright: | &copy; 2013, Michael Daum http://michaeldaumconsulting.com |
+| License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+| Release: | %$RELEASE% |
+| Version: | %$VERSION% |
+| Change History: | &nbsp; |
+|  22 Oct 2013: | initial release |
+| Dependencies: | %$DEPENDENCIES% |
+| Contrib Home: | http://foswiki.org/Extensions/%TOPIC% |
+| Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
