@@ -46,6 +46,9 @@ a copy agent is created to perform the actual operation. The basic skeleton for 
 | =debug= | boolean flag to switch on/off debug output; messages are printed to the error log of the web browser | =off= |
 | =dry= | boolean flag to switch on/off a dry mode; if enabled none of the operations will actually be saved permanently | =off= |
 | =onlynew= | boolean flag to enable/disable a check for the destination to already exist; an exception will be raised if enabled and the target object already; the target object will be overwritten in case it already exists and the flag is disabled; to be precise, a new revision will be created in this case | =on= |
+| =forcenewrevision= | force the save to increment the revision counter |
+| =dontlog= | mark this change so it doesn't appear in the statistics |
+| =minor= | True if this change is not to be notified |
 | =clear= | boolean flag; when enabled data on the destination will be _deleted_ first before copying the source data; (exception: text is always cleared before copying it over); when disabled data of source and destination will be merged | =off= |
 | =redirectto= | topic or url where to redirect the browser after a successful copy operation | |
 
