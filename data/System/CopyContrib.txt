@@ -166,6 +166,7 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 | Release: | %$RELEASE% |
 | Version: | %$VERSION% |
 | Change History: | &nbsp; |
+|  30 May 2014: | added forcenewrevision, minor and dontlog |
 |  22 Oct 2013: | initial release |
 | Dependencies: | %$DEPENDENCIES% |
 | Contrib Home: | http://foswiki.org/Extensions/%TOPIC% |
