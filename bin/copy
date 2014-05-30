@@ -1,4 +1,4 @@
-#! /home/www-data/.plenv/versions/5.18.1/bin/perl5.18.1 -wT
+#! /usr/bin/env perl
 # Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
 # Copyright (C) 2011-2013 Michael Daum http://michaeldaumconsulting.com

@@ -20,8 +20,8 @@ use Foswiki::Func();
 use Error qw( :try );
 use Foswiki::OopsException ();
 
-our $VERSION = '1.00';
-our $RELEASE = '1.00';
+our $VERSION = '1.10';
+our $RELEASE = '1.10';
 our $SHORTDESCRIPTION = 'Copies webs, topics, attachments, or part of them';
 
 our %agentImpls = (
