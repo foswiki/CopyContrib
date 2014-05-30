@@ -302,7 +302,11 @@ sub copy {
   # save
   if ($this->{dstMeta} && !$this->{dry}) {
     $this->writeDebug("saving to $this->{dstWeb}.$this->{dstTopic}");
-    $this->{dstMeta}->save;
+    $this->{dstMeta}->save(
+      forcenewrevision => $this->{forceNewRevision},
+      dontlog => $this->{dontLog},
+      minor => $this->{minor},
+    );
   }
 
   return "Copied topic [[$this->{srcWeb}.$this->{srcTopic}]] to [[$this->{dstWeb}.$this->{dstTopic}]]";

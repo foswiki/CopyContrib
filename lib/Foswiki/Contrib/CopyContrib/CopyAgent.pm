@@ -60,6 +60,16 @@ sub parseRequestObject {
   $this->{doClear} = Foswiki::Func::isTrue($request->param('clear'), 0)
     unless defined $this->{doClear};
 
+  $this->{forceNewRevision} = Foswiki::Func::isTrue($request->param('forcenewrevision'), 0)
+    unless defined $this->{forceNewRevision};
+
+  $this->{dontLog} = Foswiki::Func::isTrue($request->param('dontlog'), 0)
+    unless defined $this->{dontLog};
+
+  $this->{minor} = Foswiki::Func::isTrue($request->param('minor'), 0)
+    unless defined $this->{minor};
+
+
   # TODO
   # redirectto
 
