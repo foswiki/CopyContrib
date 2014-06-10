@@ -46,9 +46,9 @@ a copy agent is created to perform the actual operation. The basic skeleton for 
 | =debug= | boolean flag to switch on/off debug output; messages are printed to the error log of the web browser | =off= |
 | =dry= | boolean flag to switch on/off a dry mode; if enabled none of the operations will actually be saved permanently | =off= |
 | =onlynew= | boolean flag to enable/disable a check for the destination to already exist; an exception will be raised if enabled and the target object already; the target object will be overwritten in case it already exists and the flag is disabled; to be precise, a new revision will be created in this case | =on= |
-| =forcenewrevision= | force the save to increment the revision counter |
-| =dontlog= | mark this change so it doesn't appear in the statistics |
-| =minor= | True if this change is not to be notified |
+| =forcenewrevision= | force the save to increment the revision counter | =off= |
+| =dontlog= | mark this change so it doesn't appear in the statistics | =off= |
+| =minor= | True if this change is not to be notified | =off= |
 | =clear= | boolean flag; when enabled data on the destination will be _deleted_ first before copying the source data; (exception: text is always cleared before copying it over); when disabled data of source and destination will be merged | =off= |
 | =redirectto= | topic or url where to redirect the browser after a successful copy operation | |
 
@@ -88,39 +88,42 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
   <input type="hidden" name="mode" value="topics" /> 
   <input type="hidden" name="redirectto" value="%BASEWEB%.%BASETOPIC%" />
   <div class="foswikiFormStep">
-    <h3>Source:</h3>
+    <h3>%MAKETEXT{"Source"}%:</h3>
     <input type="text" name="source" size="50" />
-    <div class="foswikiGrayText">separate multiple topics with a comma</div>
-    <h3>Destination:</h3>
+    <div class="foswikiGrayText">%MAKETEXT{"separate multiple topics with a comma"}%</div>
+    <h3>%MAKETEXT{"Destination"}%:</h3>
     <input type="text" name="destination" size="50" />
-    <div class="foswikiGrayText">can be a topic or a web</div>
+    <div class="foswikiGrayText">%MAKETEXT{"can be a topic or a web"}%</div>
   </div>
   <div class="foswikiFormStep">
-     <h3>Include parts:</h3>
-     <label><input type="checkbox" name="includepart" value="text" /> Text</label> %BR%
-     <label><input type="checkbox" name="includepart" value="attachments" /> Attachments</label> %BR%
-     <label><input type="checkbox" name="includepart" value="preferences" /> Preferences</label>%BR%
-     <label><input type="checkbox" name="includepart" value="parent" /> Parent</label>%BR%
+     <h3>%MAKETEXT{"Include parts"}%:</h3>
+     <label><input type="checkbox" name="includepart" value="text" />%MAKETEXT{"Text"}%</label> %BR%
+     <label><input type="checkbox" name="includepart" value="attachments" />%MAKETEXT{"Attachments"}%</label> %BR%
+     <label><input type="checkbox" name="includepart" value="preferences" />%MAKETEXT{"Preferences"}%</label>%BR%
+     <label><input type="checkbox" name="includepart" value="parent" />%MAKETEXT{"Parent"}%</label>%BR%
      <label><input type="checkbox" name="includeparts" value="form, fields" /> <nop>DataForm</label> %BR%
-     <label><input type="checkbox" name="includepart" value="comment" /> Comments</label> 
-     <div class="foswikiGrayText">leave unchecked to copy all</div>
+     <label><input type="checkbox" name="includepart" value="comment" />%MAKETEXT{"Comments"}%</label> 
+     <div class="foswikiGrayText">%MAKETEXT{"leave unchecked to copy all"}%</div>
    </div>
    <div class="foswikiFormStep">
-     <h3>Exclude parts:</h3>
-     <label><input type="checkbox" name="excludepart" value="text" /> Text</label> %BR%
-     <label><input type="checkbox" name="excludepart" value="attachments" /> Attachments</label> %BR%
-     <label><input type="checkbox" name="excludepart" value="preferences" /> Preferences</label> %BR%
-     <label><input type="checkbox" name="excludepart" value="parent" /> Parent</label>%BR%
+     <h3>%MAKETEXT{"Exclude parts"}%:</h3>
+     <label><input type="checkbox" name="excludepart" value="text" />%MAKETEXT{"Text"}%</label> %BR%
+     <label><input type="checkbox" name="excludepart" value="attachments" />%MAKETEXT{"Attachments"}%</label> %BR%
+     <label><input type="checkbox" name="excludepart" value="preferences" />%MAKETEXT{"Preferences"}%</label> %BR%
+     <label><input type="checkbox" name="excludepart" value="parent" />%MAKETEXT{"Parent"}%</label>%BR%
      <label><input type="checkbox" name="excludeparts" value="form, fields" /> <nop>DataForm</label> %BR%
-     <label><input type="checkbox" name="excludepart" value="comment" /> Comments</label>
+     <label><input type="checkbox" name="excludepart" value="comment" />%MAKETEXT{"Comments"}%</label>
    </div>
    <div class="foswikiFormStep">
-     <h3>Options:</h3>
-     <label><input type="checkbox" name="onlynew" value="off">Allow overwrite</label> %BR%
-     <label><input type="checkbox" name="clear" vlaue="on">Clear before copying</label>
+     <h3>%MAKETEXT{"Options"}%:</h3>
+     <label><input type="checkbox" name="onlynew" value="off">%MAKETEXT{"Allow overwrite"}%</label> %BR%
+     <label><input type="checkbox" name="forcenewrevision" value="off">%MAKETEXT{"Force a new revision"}%</label> %BR%
+     <label><input type="checkbox" name="minor" value="off">%MAKETEXT{"Minor change, don't notify others"}%</label> %BR%
+     <label><input type="checkbox" name="dontlog" value="off">%MAKETEXT{"Don't log changes"}%</label> %BR%
+     <label><input type="checkbox" name="clear" vlaue="on">%MAKETEXT{"Clear before copying"}%</label>
   </div>
   <div class="foswikiFormStep">
-    %BUTTON{"Submit" icon="tick" type="submit"}%%CLEAR%
+    %BUTTON{"%MAKETEXT{"Submit"}%" icon="tick" type="submit"}%%CLEAR%
   </div>
 </div>
 </form> 
@@ -136,18 +139,18 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
   <input type="hidden" name="excludepart" value="comment" />
   <input type="hidden" name="exclude=" value="^Web.*" />
   <div class="foswikiFormStep">
-    <h3>Source:</h3>
+    <h3>%MAKETEXT{"Source"}%:</h3>
     <input type="text" name="source" size="50" />
-    <div class="foswikiGrayText">insert source web</div>
-    <h3>Filter:</h3>
+    <div class="foswikiGrayText">%MAKETEXT{"specify source web"}%</div>
+    <h3>%MAKETEXT{"Filter"}%:</h3>
     <input type="text" name="search" size="50" />
-    <div class="foswikiGrayText">insert a search query</div>
-    <h3>Destination:</h3>
+    <div class="foswikiGrayText">%MAKETEXT{"specify a search query"}%</div>
+    <h3>%MAKETEXT{"Destination"}%:</h3>
     <input type="text" name="destination" size="50" />
-    <div class="foswikiGrayText">insert a destination web</div>
+    <div class="foswikiGrayText">%MAKETEXT{"specify destination web"}%</div>
   </div>
   <div class="foswikiFormStep">
-    %BUTTON{"Submit" icon="tick" type="submit"}%%CLEAR%
+    %BUTTON{"%MAKETEXT{"Submit"}%" icon="tick" type="submit"}%%CLEAR%
   </div>
 </div>
 </form> 
@@ -161,11 +164,12 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 -->
 
 | Author(s): | Michael Daum|
-| Copyright: | &copy; 2013, Michael Daum http://michaeldaumconsulting.com |
+| Copyright: | &copy; 2013-2014, Michael Daum http://michaeldaumconsulting.com |
 | License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 | Release: | %$RELEASE% |
 | Version: | %$VERSION% |
 | Change History: | &nbsp; |
+|  10 Jun 2014: | improved error handling; make messages translatable |
 |  30 May 2014: | added forcenewrevision, minor and dontlog |
 |  22 Oct 2013: | initial release |
 | Dependencies: | %$DEPENDENCIES% |

@@ -69,7 +69,6 @@ sub copy {
 
   my $count = 0;
   my $request = Foswiki::Func::getRequestObject();
-  my $result = '';
 
   if (Foswiki::Func::webExists($this->{dst})) {
 
@@ -88,44 +87,31 @@ sub copy {
       $count++;
       $this->writeDebug("... copying $item->{web}.$item->{topic} to $this->{dstWeb}");
       $agent->parseRequestObject($request)->copy();
-
-      if ($count > 1) {
-        $result = "Copied $count topics to $this->{dstWeb}";
-      } else {
-        $result = "Copied $count topic to $this->{dstWeb}";
-      }
-    }
-  } else {
-
-    # merge all topics to one destination topic
-    ($this->{dstWeb}, $this->{dstTopic}) = Foswiki::Func::normalizeWebTopicName($this->{baseWeb}, $this->{dst})
-      unless defined $this->{dstWeb} && defined $this->{dstTopic};
-
-    throw Error::Simple("No such web '$this->{dstWeb}'") 
-      unless Foswiki::Func::webExists($this->{dstWeb});
-
-    foreach my $item (@{$this->{srcTopics}}) {
-      my $agent = new Foswiki::Contrib::CopyContrib::TopicAgent($this->{session},
-         srcWeb => $item->{web},
-         srcTopic => $item->{topic},
-         dstWeb => $this->{dstWeb},
-         dstTopic => $this->{dstTopic},
-         doClear => $this->{doClear},
-         dry => $this->{dry},
-      );
-      $count++;
-      $this->writeDebug("... copying $item->{web}.$item->{topic} to $this->{dstWeb}.$this->{dstTopic}");
-      $agent->parseRequestObject($request)->copy();
     }
 
-    if ($count > 1) {
-      $result = "Merged $count topics to [[$this->{dstWeb}.$this->{dstTopic}]]";
-    } else {
-      $result = "Copied $count topic to [[$this->{dstWeb}.$this->{dstTopic}]]";
-    }
+    return ("topiclist_success", $count, $this->{dstWeb});
+  } 
+
+  # merge all topics to one destination topic
+  ($this->{dstWeb}, $this->{dstTopic}) = Foswiki::Func::normalizeWebTopicName($this->{baseWeb}, $this->{dst})
+    unless defined $this->{dstWeb} && defined $this->{dstTopic};
+
+  throw Error::Simple("No such web '$this->{dstWeb}'") 
+    unless Foswiki::Func::webExists($this->{dstWeb});
+
+  foreach my $item (@{$this->{srcTopics}}) {
+    my $agent = new Foswiki::Contrib::CopyContrib::TopicAgent($this->{session},
+       srcWeb => $item->{web},
+       srcTopic => $item->{topic},
+       dstWeb => $this->{dstWeb},
+       dstTopic => $this->{dstTopic},
+       doClear => $this->{doClear},
+       dry => $this->{dry},
+    );
+    $count++;
+    $this->writeDebug("... copying $item->{web}.$item->{topic} to $this->{dstWeb}.$this->{dstTopic}");
+    $agent->parseRequestObject($request)->copy();
   }
 
-  $this->writeDebug("copied $count topic(s)") if $count;
-
-  return $result; 
+  return ("topiclist_merge_success", $count, "$this->{dstWeb}.$this->{dstTopic}");
 }

@@ -20,8 +20,8 @@ use Foswiki::Func();
 use Error qw( :try );
 use Foswiki::OopsException ();
 
-our $VERSION = '1.10';
-our $RELEASE = '1.10';
+our $VERSION = '2.00';
+our $RELEASE = '2.00';
 our $SHORTDESCRIPTION = 'Copies webs, topics, attachments, or part of them';
 
 our %agentImpls = (
@@ -46,7 +46,8 @@ sub registerAgent {
 sub copyCgi {
   my $session = shift;
 
-  my $result = '';
+  my @result = ();
+  my $msg = '';
   my $isCommandLine = Foswiki::Func::getContext()->{command_line};
 
   try {
@@ -68,44 +69,79 @@ sub copyCgi {
     eval "require $agent";
     throw Error::Simple($@) if $@;
 
-    $result = $agent->new($session)->parseRequestObject($request)->copy();
-
+    @result = $agent->new($session)->parseRequestObject($request)->copy();
     
   } catch Error::Simple with {
     my $error = shift;
-
+    my $text = $error->{-text};
 
     if ($isCommandLine) {
-      print STDERR "ERROR: ".$error->{-text}."\n";
+      $msg = "ERROR: ".$text;
     } else {
-      throw Foswiki::OopsException(undef,
+      throw Foswiki::OopsException("copy",
+        def => "generic",
         params => [
           "Error during copy operation",
-          $error->{-text},
-          "Please go back in your browser and try again."
+          $text,
         ]
       );
     }
     
+  } catch Foswiki::OopsException with {
+    my $error = shift;
+    if ($isCommandLine) {
+      $msg = "ERROR: ".$error->stringify;
+    } else {
+      throw $error; # forward
+    }
   };
+  
+  if (@result) {
+    $msg = renderTemplate(@result);
+    $msg = Foswiki::Func::expandCommonVariables($msg);
+  }
 
   if ($isCommandLine) {
-    print $result."\n";
+    print $msg."\n";
   } else {
     my $target = $session->redirectto();
 
     if ($target) {
-      $target .= (($target =~ /\?/) ? '&':'?').'copy_result='.urlEncode($result);
+      $msg = Foswiki::Func::renderText($msg);
+      $target .= (($target =~ /\?/) ? '&':'?').'_copy_result='.urlEncode($msg);
       $session->redirect($target);
     } else {
-
-      throw Foswiki::OopsException("generic",
-        params => ["Success", $result]
+      my @params = ("Success");
+      my $def = shift @result;
+      push @params, @result;
+      throw Foswiki::OopsException("copy",
+        def => $def,
+        params => \@params,
       );
     }
   }
 
   return;
+}
+
+our $_doneReadTemplate;
+
+sub renderTemplate {
+  my $def = shift;
+
+  Foswiki::Func::readTemplate("oopscopy") unless $_doneReadTemplate;
+  $_doneReadTemplate = 1;
+
+  my $msg = Foswiki::Func::expandTemplate($def);
+
+  my $n = 2;
+  foreach my $param (@_) {
+    $msg =~ s/%PARAM$n%/$param/g;
+    $n++;
+  }
+  $msg =~ s/%PARAM\d+%//g;
+
+  return $msg;
 }
 
 sub urlEncode {

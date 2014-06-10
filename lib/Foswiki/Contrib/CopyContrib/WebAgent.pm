@@ -123,7 +123,7 @@ sub copy {
 
   $this->writeDebug("copied $count topic(s)") if $count;
 
-  return "Copied $count topic(s) to $this->{dstWeb}";
+  return ("web_success", $count, $this->{dstWeb});
 }
 
 1;

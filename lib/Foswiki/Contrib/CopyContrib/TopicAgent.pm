@@ -18,6 +18,7 @@ use warnings;
 
 use Foswiki::Meta ();
 use Foswiki::Func();
+use Foswiki::OopsException();
 use Foswiki::Contrib::CopyContrib::CopyAgent ();
 use Error qw( :try );
 
@@ -126,10 +127,20 @@ sub checkAccess {
 
   my $user = Foswiki::Func::getWikiName();
 
-  throw Error::Simple("Access denied on source $this->{srcWeb}.$this->{srcTopic}")
+  throw Foswiki::OopsException("copy",
+    def => "access_denied_error",
+    params => [
+      "Error during copy operation",
+      "$this->{srcWeb}.$this->{srcTopic}"
+    ])
     unless Foswiki::Func::checkAccessPermission('view', $user, undef, $this->{srcTopic}, $this->{srcWeb});
 
-  throw Error::Simple("Access denied on destination $this->{dstWeb}.$this->{dstTopic}")
+  throw Foswiki::OopsException("copy",
+    def => "access_denied_error",
+    params => [
+      "Error during copy operation",
+      "$this->{dstWeb}.$this->{dstTopic}"
+    ])
     unless Foswiki::Func::checkAccessPermission('change', $user, undef, $this->{dstTopic}, $this->{dstWeb});
 }
 
@@ -276,8 +287,12 @@ sub copy {
   throw Error::Simple("Topic $this->{srcWeb}.$this->{srcTopic} does not exist")
     unless Foswiki::Func::topicExists($this->{srcWeb}, $this->{srcTopic});
 
-  throw Error::Simple("Cannot overwrite existing destination topic $this->{dstWeb}.$this->{dstTopic}")
-    if $this->{onlyNew} && Foswiki::Func::topicExists($this->{dstWeb}, $this->{dstTopic});
+  throw Foswiki::OopsException("copy",
+    def => "overwrite_error",
+    params => [
+      "Error during copy operation",
+      "$this->{dstWeb}.$this->{dstTopic}"
+    ]) if $this->{onlyNew} && Foswiki::Func::topicExists($this->{dstWeb}, $this->{dstTopic});
 
   # check access
   $this->checkAccess;
@@ -309,7 +324,7 @@ sub copy {
     );
   }
 
-  return "Copied topic [[$this->{srcWeb}.$this->{srcTopic}]] to [[$this->{dstWeb}.$this->{dstTopic}]]";
+  return ("topic_success", "$this->{srcWeb}.$this->{srcTopic}", "$this->{dstWeb}.$this->{dstTopic}");
 }
 
 1;

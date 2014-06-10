@@ -1,0 +1,29 @@
+%TMPL:INCLUDE{"oops"}%
+
+%TMPL:DEF{"title"}%%PARAM1% - %WIKITOOLNAME%%TMPL:END%
+%TMPL:DEF{"heading"}% %PARAM1% %TMPL:END%
+%TMPL:DEF{"message"}%%INSTANTIATE%%TMPL:END%
+
+%TMPL:DEF{"titleaction"}% %TMPL:END%
+%TMPL:DEF{"webaction"}%%TMPL:END%
+%TMPL:DEF{"topicaction"}%%TMPL:END%
+
+%TMPL:DEF{"generic"}%<!-- -->
+%MAKETEXT{ "[_1]" args="%PARAM2%" }%
+
+%MAKETEXT{ "[_1]" args="%PARAM3%" }%
+
+%MAKETEXT{ "[_1]" args="%PARAM4%" }%
+<!-- -->%TMPL:END%
+
+%TMPL:DEF{"web_success"}%%MAKETEXT{"Successfully copied [_1] topic(s) to [[[_2].%HOMETOPIC%]]." args="%PARAM2%, %PARAM3%"}%%TMPL:END%
+
+%TMPL:DEF{"topiclist_merge_success"}%%MAKETEXT{"Merged [_1] topic(s) to [[[_2]]]." args="%PARAM2%, %PARAM3%"}%%TMPL:END%
+
+%TMPL:DEF{"topiclist_success"}%%MAKETEXT{"Successfully copied [_1] topic(s) to [[[_2]]]." args="%PARAM2%, %PARAM3%"}%%TMPL:END%
+
+%TMPL:DEF{"topic_success"}%%MAKETEXT{"Successfully copied [[[_1]]] to [[[_2]]]." args="%PARAM2%, %PARAM3%"}%%TMPL:END%
+
+%TMPL:DEF{"overwrite_error"}%%MAKETEXT{"Cannot overwrite existing destination topic [[[_1]]]." args="%PARAM2%"}% %TMPL:P{"goback" target="%BASEWEB%.%BASETOPIC%"}%%TMPL:END%
+
+%TMPL:DEF{"access_denied_error"}%%MAKTEXT{"Access denied on [[[_1]]]." args="%PARAM2%"}% %TMPL:P{"goback" target="%BASEWEB%.%BASETOPIC%"}%%TMPL:END%
