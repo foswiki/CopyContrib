@@ -158,20 +158,27 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 ---++ Installation Instructions
 %$INSTALL_INSTRUCTIONS%
 
----++ Info
+---++ Dependencies
+%$DEPENDENCIES%
+
+---++ Change History
+
+%TABLE{columnwidths="7em" tablewidth="100%"}%
+|  25 Sep 2015: | added support for unicode foswiki |
+|  10 Jun 2014: | improved error handling; make messages translatable |
+|  30 May 2014: | added forcenewrevision, minor and dontlog |
+|  22 Oct 2013: | initial release |
+
 <!--
    * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
 -->
 
-| Author(s): | Michael Daum|
-| Copyright: | &copy; 2013-2014, Michael Daum http://michaeldaumconsulting.com |
-| License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
-| Release: | %$RELEASE% |
-| Version: | %$VERSION% |
-| Change History: | &nbsp; |
-|  10 Jun 2014: | improved error handling; make messages translatable |
-|  30 May 2014: | added forcenewrevision, minor and dontlog |
-|  22 Oct 2013: | initial release |
-| Dependencies: | %$DEPENDENCIES% |
-| Contrib Home: | http://foswiki.org/Extensions/%TOPIC% |
-| Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="Author" title="Author" value="Michael Daum"}%
+%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2013-2015, Michael Daum http://michaeldaumconsulting.com"}%
+%META:FIELD{name="Home" title="Home" value="http://foswiki.org/Extensions/CopyContrib"}%
+%META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
+%META:FIELD{name="Release" title="Release" value="%$RELEASE%"}%
+%META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/CopyContrib"}%
+%META:FIELD{name="Support" title="Support" value="http://foswiki.org/Support/CopyContrib"}%
+%META:FIELD{name="Version" title="Version" value="%$VERSION%"}%

@@ -1,6 +1,6 @@
 # Copyright (C) 2014 Michael Daum http://michaeldaumconsulting.com
 # This file is distributed under the same license as CopyContrib.
-# Michael Daum <daum@michaeldaumconsulting.com>, 2014.
+# Michael Daum <daum@michaeldaumconsulting.com>, 2015.
 #
 msgid ""
 msgstr ""

@@ -22,7 +22,13 @@
 
 %TMPL:DEF{"topiclist_success"}%%MAKETEXT{"Successfully copied [_1] topic(s) to [[[_2]]]." args="%PARAM2%, %PARAM3%"}%%TMPL:END%
 
-%TMPL:DEF{"topic_success"}%%MAKETEXT{"Successfully copied [[[_1]]] to [[[_2]]]." args="%PARAM2%, %PARAM3%"}%%TMPL:END%
+%TMPL:DEF{"topic_success"}%%MAKETEXT{"Successfully copied [[[_1]]] to [[[_2]]]." args="%PARAM2%, %PARAM3%"}%
+<literal>
+<script>
+window.location.href = '%SCRIPTURL{"view"}%/%PARAM3%';
+</script>
+</literal>
+%TMPL:END%
 
 %TMPL:DEF{"overwrite_error"}%%MAKETEXT{"Cannot overwrite existing destination topic [[[_1]]]." args="%PARAM2%"}% %TMPL:P{"goback" target="%BASEWEB%.%BASETOPIC%"}%%TMPL:END%
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2013-2015 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -18,10 +18,11 @@ use warnings;
 
 use Foswiki::Func();
 use Error qw( :try );
+use Encode();
 use Foswiki::OopsException ();
 
-our $VERSION = '2.00';
-our $RELEASE = '2.00';
+our $VERSION = '2.01';
+our $RELEASE = '25 Sep 2015';
 our $SHORTDESCRIPTION = 'Copies webs, topics, attachments, or part of them';
 
 our %agentImpls = (
@@ -147,6 +148,7 @@ sub renderTemplate {
 sub urlEncode {
   my $text = shift;
 
+  $text = Encode::encode_utf8($text) if $Foswiki::UNICODE;
   $text =~ s/([^0-9a-zA-Z-_.:~!*'\/])/'%'.sprintf('%02x',ord($1))/ge;
 
   return $text;

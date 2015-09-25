@@ -1,0 +1,9 @@
+*.swp
+*,v
+CopyContrib.md5
+CopyContrib.sha1
+CopyContrib.tgz
+CopyContrib.txt
+CopyContrib.zip
+CopyContrib_installer
+CopyContrib_installer.pl
