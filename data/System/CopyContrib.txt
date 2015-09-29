@@ -1,6 +1,6 @@
-%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1379705430" format="1.1" reprev="7" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1443363950" format="1.1" version="1"}%
 ---+!! %TOPIC%
-%SHORTDESCRIPTION%
+%FORMFIELD{"Description"}%
 
 %TOC%
 
@@ -170,12 +170,12 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 |  22 Oct 2013: | initial release |
 
 <!--
-   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
 -->
 
 %META:FORM{name="PackageForm"}%
 %META:FIELD{name="Author" title="Author" value="Michael Daum"}%
 %META:FIELD{name="Copyright" title="Copyright" value="&copy; 2013-2015, Michael Daum http://michaeldaumconsulting.com"}%
+%META:FIELD{name="Description" title="Description" value="%$SHORTDESCRIPTION%"}%
 %META:FIELD{name="Home" title="Home" value="http://foswiki.org/Extensions/CopyContrib"}%
 %META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
 %META:FIELD{name="Release" title="Release" value="%$RELEASE%"}%
