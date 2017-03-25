@@ -42,8 +42,8 @@ sub parseRequestObject {
   ($this->{dstWeb}, $this->{dstTopic}) = Foswiki::Func::normalizeWebTopicName($this->{baseWeb}, $this->{dst})
     unless defined $this->{dstWeb} && defined $this->{dstTopic};
 
-  #$this->writeDebug("srcWeb=$this->{srcWeb}, srcTopic=$this->{srcTopic}");
-  #$this->writeDebug("dstWeb=$this->{dstWeb}, dstTopic=$this->{dstTopic}");
+  $this->writeDebug("srcWeb=$this->{srcWeb}, srcTopic=$this->{srcTopic}");
+  $this->writeDebug("dstWeb=$this->{dstWeb}, dstTopic=$this->{dstTopic}");
 
   my @includeParts = ();
   my $includeParts = $request->param('includeparts');
@@ -148,7 +148,7 @@ sub checkAccess {
 sub read {
   my ($this, $doReload) = @_;
 
-  #$this->writeDebug("called read");
+  $this->writeDebug("called read");
 
   # read/create destination object
   if (!defined($this->{dstMeta}) || $doReload) {
@@ -178,7 +178,7 @@ sub copyPart {
       !$this->{excludeparts}{$partId}
   );
 
-  #$this->writeDebug("called copyPart($partId)");
+  $this->writeDebug("called copyPart($partId)");
   $this->read;
 
   # special handling of attachments 
@@ -204,7 +204,7 @@ sub copyPart {
   throw Error::Simple("Unknown meta data id '$partId'") 
     unless defined $metaDataName;
 
-  #$this->writeDebug("metaDataName=$metaDataName");
+  $this->writeDebug("metaDataName=$metaDataName");
 
   my $exclude = $this->{'exclude'.$partId};
   my $include = $this->{'include'.$partId};
@@ -230,7 +230,7 @@ sub copyPart {
     $count++;
   }
 
-  #$this->writeDebug("copied $count $partId item(s)") if $count;
+  $this->writeDebug("copied $count $partId item(s)") if $count;
 }
 
 ###############################################################################
@@ -281,8 +281,8 @@ sub copyAttachments {
 sub copy {
   my $this = shift;
 
-  #$this->writeDebug("called copy() ".($this->{dry}?'...dry run':''));
-  #$this->writeDebug("doClear=".$this->{doClear});
+  $this->writeDebug("called copy() ".($this->{dry}?'...dry run':''));
+  $this->writeDebug("doClear=".$this->{doClear});
 
   throw Error::Simple("Topic $this->{srcWeb}.$this->{srcTopic} does not exist")
     unless Foswiki::Func::topicExists($this->{srcWeb}, $this->{srcTopic});

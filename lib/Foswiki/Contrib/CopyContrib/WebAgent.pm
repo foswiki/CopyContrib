@@ -108,7 +108,7 @@ sub copy {
          dstTopic => $topic,
          doClear => $this->{doClear},
          dry => $this->{dry},
-         debug => 0,
+         debug => $this->{debug},
       );
       $count++;
       $this->writeDebug("... copying $web.$topic to $this->{dstWeb}.$topic");
