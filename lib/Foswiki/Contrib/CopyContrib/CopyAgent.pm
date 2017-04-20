@@ -69,7 +69,6 @@ sub parseRequestObject {
   $this->{minor} = Foswiki::Func::isTrue(scalar $request->param('minor'), 0)
     unless defined $this->{minor};
 
-
   # TODO
   # redirectto
 

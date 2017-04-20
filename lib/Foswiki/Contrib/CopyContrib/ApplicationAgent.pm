@@ -19,9 +19,10 @@ use warnings;
 use Foswiki::Func();
 use Foswiki::Contrib::CopyContrib::CopyAgent  ();
 use Foswiki::Contrib::CopyContrib::TopicAgent ();
+use Foswiki::Contrib::CopyContrib::TopicStubAgent ();
 use Error qw( :try );
 
-use Data::Dumper;
+#use Data::Dumper;
 
 our @ISA = qw( Foswiki::Contrib::CopyContrib::CopyAgent );
 
@@ -43,17 +44,15 @@ sub parseRequestObject {
           unless @source;
         $request->delete('source');
 
-        $this->writeDebug("source topics:");
+#        $this->writeDebug("source topics:");
         foreach (@source) {
             foreach my $item ( split(/\s*,\s*/) ) {
 
       # $item is of the form: source_topic_name => target_topic_name [copy_type]
-                $this->writeDebug("... item: $item");
+#                $this->writeDebug("... item: $item");
                 my ( $from, $to, $type ) = ( $item =~
                       m!\A\s*([\/\.\w]+)\s*(?:=>\s*(\w+))?\s*(\[\w+\])?\s*\Z! );
                 unless ($from) {
-                    $this->writeDebug(
-                        "   >>> not a valid input source parameter. Ignored.");
                     next;
                 }
 
@@ -69,7 +68,7 @@ sub parseRequestObject {
                     target => $to,
                     type   => $type
                   };
-                $this->writeDebug("... web.topic=>target: $web.$topic => $to");
+#                $this->writeDebug("... web.topic=>target: $web.$topic => $to");
             }
         }
     }
@@ -78,11 +77,11 @@ sub parseRequestObject {
     unless ( defined $this->{dstWeb} ) {
         $this->{dstWeb} = $request->param('destination');
         $request->delete('destination');
-        $this->writeDebug("dstWeb=$this->{dstWeb}") if defined $this->{dstWeb};
+#        $this->writeDebug("dstWeb=$this->{dstWeb}") if defined $this->{dstWeb};
     }
 
     # Get the template web. SMELL: Why don't we delete the parameter?
-    $this->{templateWeb} = $request->param('template')
+    $this->{templateWeb} = $request->param('template') || '_default' 
       unless defined $this->{templateWeb};
 
     return $this;
@@ -92,12 +91,9 @@ sub parseRequestObject {
 sub copy {
     my $this = shift;
 
-    $this->writeDebug(
-        "called copy() " . ( $this->{dry} ? '...dry run' : '' ) );
+#    $this->writeDebug("called copy() " . ( $this->{dry} ? '...dry run' : '' ) );
 
 ## check destination web. If it does not exists. create it as is done in the WebAgent (Can't use web agent. It expects source topics.)
-## check source list and use topic agent to copy each [normal] topic
-## Consider a StubAgent, which copies a given topic to a stub. Web must extist.
 
     throw Error::Simple("No destination") unless defined $this->{dstWeb};
 
@@ -106,27 +102,28 @@ sub copy {
 
     unless ( Foswiki::Func::webExists( $this->{dstWeb} ) ) {
         my $template = $this->{templateWeb} || '_default';
-        $this->writeDebug(
-"creating destination web '$this->{dstWeb}' using template '$template'"
-        );
-        Foswiki::Func::createWeb( $this->{dstWeb}, $template )
+#        $this->writeDebug("creating destination web '$this->{dstWeb}' using template '$this->{templateWeb}'");
+        Foswiki::Func::createWeb( $this->{dstWeb}, $this->{templateWeb} )
           unless $this->{dry};
     }
-
-    #print "=== Sleeping...\n"; sleep(60);
 
     if ( Foswiki::Func::webExists( $this->{dstWeb} ) ) {
 
         # copy all topics to a destination web
-        #BvO    $this->{dstWeb} = $this->{dst};
-
         foreach my $item ( @{ $this->{srcTopics} } ) {
             if ( $item->{type} eq '[stub]' ) {
-                $count++;
-                $this->writeDebug(
-"... copying $item->{web}.$item->{topic} to $this->{dstWeb}.$item->{target} AS STUB"
+                my $agent = new Foswiki::Contrib::CopyContrib::TopicStubAgent(
+                    $this->{session},
+                    srcWeb   => $item->{web},
+                    srcTopic => $item->{topic},
+                    dstWeb   => $this->{dstWeb},
+                    dstTopic => $item->{target},
+                    dry      => $this->{dry},
+                    debug    => $this->{debug},
                 );
-                copyStub( $this, $item );
+#                $this->writeDebug("... copying $item->{web}.$item->{topic} to $this->{dstWeb}.$item->{target} AS STUB");
+                $count++;
+                $agent->parseRequestObject($request)->copy();
             }
             else {    # else[topic]
                 my $agent = new Foswiki::Contrib::CopyContrib::TopicAgent(
@@ -140,40 +137,14 @@ sub copy {
                     debug    => $this->{debug},
                 );
 
+#                $this->writeDebug("... copying $item->{web}.$item->{topic} to $this->{dstWeb}.$item->{target}");
                 $count++;
-                $this->writeDebug(
-"... copying $item->{web}.$item->{topic} to $this->{dstWeb}.$item->{target}"
-                );
                 $agent->parseRequestObject($request)->copy();
             }
         }
 
-        return ( "topiclist_success", $count, $this->{dstWeb} );
+        return ( "web_success", $count, $this->{dstWeb} );
     }
-}
-
-sub copyStub {
-    my ( $this, $item ) = @_;
-
-    #  Foswiki::Func::saveTopic( $web, $topic, $meta, $text );
-    Foswiki::Func::saveTopic( $this->{dstWeb}, $item->{target}, undef(),
-        topicStubTemplate( $item->{web}, $item->{web} . '.' . $item->{topic} )
-    );
-
-}
-
-sub topicStubTemplate {
-    my ( $application, $target ) = @_;
-    my $text = <<"END_HERE";
-%META:FORM{name="Applications.TopicStub"}%
-%META:FIELD{name="TopicType" title="TopicType" value="TopicStub, TopicType"}%
-%META:FIELD{name="TopicTitle" title="<nop>TopicTitle" value=""}%
-%META:FIELD{name="Summary" title="Summary" value=""}%
-%META:FIELD{name="WikiApplication" title="WikiApplication" value="$application"}%
-%META:FIELD{name="Target" title="Target" value="$target"}%
-END_HERE
-
-    return $text;
 }
 
 1;

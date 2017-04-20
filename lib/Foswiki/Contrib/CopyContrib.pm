@@ -30,7 +30,7 @@ our %agentImpls = (
   'topics' => 'Foswiki::Contrib::CopyContrib::TopicListAgent',
   'stub' => 'Foswiki::Contrib::CopyContrib::TopicStubAgent',
   'web' => 'Foswiki::Contrib::CopyContrib::WebAgent',
-  'application' => 'Foswiki::Contrib::CopyContrib::ApplicationAgent',
+  'application' => 'Foswiki::Contrib::CopyContrib::ApplicationAgent', 
 #  'webs' => 'Foswiki::Contrib::CopyContrib::WebListAgent',
 );
 

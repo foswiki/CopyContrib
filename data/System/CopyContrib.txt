@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BramVanOosterhout" comment="" date="1490246301" format="1.1" version="5"}%
+%META:TOPICINFO{author="BramVanOosterhout" comment="" date="1490961236" format="1.1" version="7"}%
 ---+!! %TOPIC%
 %FORMFIELD{"Description"}%
 
@@ -43,7 +43,7 @@ a copy agent is created to perform the actual operation. The basic skeleton for 
   <li> =topic=: copy one topic or parts of it to a destination topic </li>\
   <li> =topics=: copy a list of topic to a destination </li>\
   <li> =web=: copy a web to a destination </li>\
-  <li> =application>=: Create a web suported by a given application </li>\
+  <li> =application=: Create a web supported by a given application </li>\
   <li> =stub=: create a stub for a given application topic </li> </ul> | |
 | =debug= | boolean flag to switch on/off debug output; messages are printed to the error log of the web browser | =off= |
 | =dry= | boolean flag to switch on/off a dry mode; if enabled none of the operations will actually be saved permanently | =off= |

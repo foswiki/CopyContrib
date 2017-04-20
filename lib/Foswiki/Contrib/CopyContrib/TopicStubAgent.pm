@@ -4,24 +4,13 @@ package Foswiki::Contrib::CopyContrib::TopicStubAgent;
 use strict;
 use warnings;
 
-#use Foswiki::Contrib::CopyContrib::CopyAgent ();
 use Foswiki::Contrib::CopyContrib::TopicAgent ();
 
 our @ISA = qw( Foswiki::Contrib::CopyContrib::TopicAgent );
 
-use Data::Dumper ();
-
-sub printdump { print "========== dump of $_[0]\n"; $Data::Dumper::Maxdepth = 3; print Data::Dumper->Dump( [$_[1]] ) }
-
 ###############################################################################
-sub DISABLE_parseRequestObject {
-  my ($this, $request) = @_;
-
-  $this->SUPER::parseRequestObject($request);
-
 ## TopicStubAgent performs a specialised copy of TopicAgent.
 ## TopicStubAgent will copy the source topic as a stub
-## TopicStubAgent will NOT copy TopicStubs (TODO special case?)
 ## TopicStubAgent:
 ##   * does NOT copy attachments
 ##   * does NOT copy text
@@ -31,7 +20,8 @@ sub DISABLE_parseRequestObject {
 ##      * Summary
 ##      * WikiApplication
 ##   * does insert the following meta data (Not available through TopicAgent)
-##      * META:FIELD{name="TopicType" title="TopicType" value="TopicStub, <types listed in the source topic>"}%
+##      * META:FIELD{name="TopicType" title="TopicType" 
+##                   value="TopicStub, <types listed in the source topic>"}%
 ##      * META:FORM{name="Applications.TopicType"}
 ##      * META:FIELD{name="Target" title="Target" value="<fully qualified source topic>"}
 ##      * META:FIELD{name="Section" title="Section" value=""}%
@@ -40,42 +30,11 @@ sub DISABLE_parseRequestObject {
 ##   * source
 ##   * destination
 
-
-  $this->{src} = $request->param('source') || $this->{baseWeb}.'.'.$this->{baseTopic};
-  ($this->{srcWeb}, $this->{srcTopic}) = Foswiki::Func::normalizeWebTopicName($this->{baseWeb}, $this->{src})
-    unless defined $this->{srcWeb} && defined $this->{srcTopic};
-
-  $this->{dst} = $request->param('destination') || $this->{src};
-  ($this->{dstWeb}, $this->{dstTopic}) = Foswiki::Func::normalizeWebTopicName($this->{baseWeb}, $this->{dst})
-    unless defined $this->{dstWeb} && defined $this->{dstTopic};
-
-  $this->writeDebug("srcWeb=$this->{srcWeb}, srcTopic=$this->{srcTopic}");
-  $this->writeDebug("dstWeb=$this->{dstWeb}, dstTopic=$this->{dstTopic}");
-
-#  if ($this->{debug}) {
-#    print STDERR Data::Dumper->Dump([$this])"\n";
-#  }
-
-  return $this;
-}
-
-###############################################################################
-# getKnownMetaAliases returns aliases for selected existing meta data:
-# (this is the META data Foswiki knows, not the META data on the source topic.)
-# VERSIONS   - ignored
-# TOPICMOVED - ignored
-# TOPICINFO  - ignored
-# FORM         as form
-# PREFERENCE   as preferences
-# FILEATTACHMENT as attachments
-# FIELD        as fields
-# TOPICPARENT  as parent
-
 ###############################################################################
 sub copy {
   my $this = shift;
 
-  $this->writeDebug("called copy() ".($this->{dry}?'...dry run':''));
+#  $this->writeDebug("called copy() ".($this->{dry}?'...dry run':''));
 
   throw Error::Simple("Topic $this->{srcWeb}.$this->{srcTopic} does not exist")
     unless Foswiki::Func::topicExists($this->{srcWeb}, $this->{srcTopic});
@@ -96,7 +55,7 @@ sub copy {
 # If the source is a TopicStub, then we can save the topic directly under the destination name.
   if ( $this->isTopicStub() ) {
     if ($this->{srcMeta} && !$this->{dry}) {
-      $this->writeDebug("saving to $this->{dstWeb}.$this->{dstTopic} as copied stub");
+#      $this->writeDebug("saving to $this->{dstWeb}.$this->{dstTopic} as copied stub");
       $this->{srcMeta}->saveAs(
                 web => $this->{dstWeb},
                 topic => $this->{dstTopic},
@@ -116,7 +75,7 @@ sub copy {
 
 # save the destination topic
   if ($this->{dstMeta} && !$this->{dry}) {
-    $this->writeDebug("saving to $this->{dstWeb}.$this->{dstTopic}");
+#    $this->writeDebug("saving to $this->{dstWeb}.$this->{dstTopic}");
     $this->{dstMeta}->save(
       forcenewrevision => $this->{forceNewRevision},
       dontlog => $this->{dontLog},
@@ -173,8 +132,6 @@ sub addMetadata {
   $this->{dstMeta}->put( 'FORM', { name => 'Applications.TopicStub' } );
 
   $this->{dstMeta} ->putAll( 'FIELD', $this->defineFields() );
-
-##  printdump( "Destination topic (including Target):", $this->{dstMeta} );
 }
 
 1;

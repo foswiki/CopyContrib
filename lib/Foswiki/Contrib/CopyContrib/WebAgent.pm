@@ -61,7 +61,7 @@ sub copy {
 
   unless (Foswiki::Func::webExists($this->{dstWeb}))  {
     my $template = $this->{templateWeb} || '_empty';
-    $this->writeDebug("creating destination web '$this->{dstWeb}' using template '$template'");
+#    $this->writeDebug("creating destination web '$this->{dstWeb}' using template '$template'");
     Foswiki::Func::createWeb($this->{dstWeb}, $this->{templateWeb})
       unless $this->{dry};
   }
@@ -69,7 +69,7 @@ sub copy {
   my $searchString = $this->{search};
   $searchString = '1' unless defined $searchString;
 
-  $this->writeDebug("search=$searchString");  
+#  $this->writeDebug("search=$searchString");  
 
   my $matches = Foswiki::Func::query(
     $searchString,
@@ -84,8 +84,8 @@ sub copy {
   my $request = Foswiki::Func::getRequestObject();
   my $count = 0;
 
-  $this->writeDebug("include=$this->{include}") if defined $this->{include};
-  $this->writeDebug("exclude=$this->{exclude}") if defined $this->{exclude};
+#  $this->writeDebug("include=$this->{include}") if defined $this->{include};
+#  $this->writeDebug("exclude=$this->{exclude}") if defined $this->{exclude};
 
   if (Foswiki::Func::getContext()->{DBCachePluginEnabled}) {
 #   $this->writeDebug("disabling DBCachePlugin's saveHandler temporarily during bulk operation");
@@ -111,7 +111,7 @@ sub copy {
          debug => $this->{debug},
       );
       $count++;
-      $this->writeDebug("... copying $web.$topic to $this->{dstWeb}.$topic");
+#      $this->writeDebug("... copying $web.$topic to $this->{dstWeb}.$topic");
       $agent->parseRequestObject($request)->copy();
     }
   } finally {
@@ -121,7 +121,7 @@ sub copy {
 #   }
   };
 
-  $this->writeDebug("copied $count topic(s)") if $count;
+#  $this->writeDebug("copied $count topic(s)") if $count;
 
   return ("web_success", $count, $this->{dstWeb});
 }
