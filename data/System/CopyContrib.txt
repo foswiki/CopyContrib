@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1443363950" format="1.1" version="1"}%
+%META:TOPICINFO{author="BramVanOosterhout" comment="" date="1490961236" format="1.1" version="7"}%
 ---+!! %TOPIC%
 %FORMFIELD{"Description"}%
 
@@ -42,7 +42,9 @@ a copy agent is created to perform the actual operation. The basic skeleton for 
 | =mode= | select the type of operation; possible values are: <ul>\
   <li> =topic=: copy one topic or parts of it to a destination topic </li>\
   <li> =topics=: copy a list of topic to a destination </li>\
-  <li> =web=: copy a web to a destination </li> </ul> | |
+  <li> =web=: copy a web to a destination </li>\
+  <li> =application=: Create a web supported by a given application </li>\
+  <li> =stub=: create a stub for a given application topic </li> </ul> | |
 | =debug= | boolean flag to switch on/off debug output; messages are printed to the error log of the web browser | =off= |
 | =dry= | boolean flag to switch on/off a dry mode; if enabled none of the operations will actually be saved permanently | =off= |
 | =onlynew= | boolean flag to enable/disable a check for the destination to already exist; an exception will be raised if enabled and the target object already; the target object will be overwritten in case it already exists and the flag is disabled; to be precise, a new revision will be created in this case | =on= |
@@ -79,6 +81,19 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 | =search= | search expression to find topics in the source web. See [[%SYSTEMWEB%.QuerySearch]] for more information | =.*= |
 | =include= | regular expression topics in the source web must match to be included in the copy process | |
 | =exclude= | regluar expression; excludes matching topics from the source web | |
+
+---+++ Mode: =application=
+
+| *Name* | *Description* | *Default* |
+| =source= | the source topicsto be copied | =%<nop>BASEWEB%= |
+| =destination= | the destination web where to copy all source topicsto | |
+| =template= | a template web to be used in case the destination web does not exist yet and needs to be created on the base of a template | =_default= |
+
+---+++ Mode: =stub=
+
+| *Name* | *Description* | *Default* |
+| =source= | the source topic to be copied | =%<nop>BASEWEB%.%<nop>BASETOPIC%= |
+| =destination= | the destination topic where to copy =source= to | =source= |
 
 ---++ Examples
 
@@ -120,7 +135,7 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
      <label><input type="checkbox" name="forcenewrevision" value="off">%MAKETEXT{"Force a new revision"}%</label> %BR%
      <label><input type="checkbox" name="minor" value="off">%MAKETEXT{"Minor change, don't notify others"}%</label> %BR%
      <label><input type="checkbox" name="dontlog" value="off">%MAKETEXT{"Don't log changes"}%</label> %BR%
-     <label><input type="checkbox" name="clear" vlaue="on">%MAKETEXT{"Clear before copying"}%</label>
+     <label><input type="checkbox" name="clear" value="on">%MAKETEXT{"Clear before copying"}%</label>
   </div>
   <div class="foswikiFormStep">
     %BUTTON{"%MAKETEXT{"Submit"}%" icon="tick" type="submit"}%%CLEAR%
@@ -174,11 +189,11 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 
 %META:FORM{name="PackageForm"}%
 %META:FIELD{name="Author" title="Author" value="Michael Daum"}%
-%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2013-2015, Michael Daum http://michaeldaumconsulting.com"}%
-%META:FIELD{name="Description" title="Description" value="%$SHORTDESCRIPTION%"}%
-%META:FIELD{name="Home" title="Home" value="http://foswiki.org/Extensions/CopyContrib"}%
-%META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
-%META:FIELD{name="Release" title="Release" value="%$RELEASE%"}%
+%META:FIELD{name="Version" title="Version" value="%25$VERSION%25"}%
+%META:FIELD{name="Release" title="Release" value="%25$RELEASE%25"}%
+%META:FIELD{name="Description" title="Description" value="%25$SHORTDESCRIPTION%25"}%
 %META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/CopyContrib"}%
+%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2013-2015, Michael Daum http://michaeldaumconsulting.com"}%
+%META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
+%META:FIELD{name="Home" title="Home" value="http://foswiki.org/Extensions/CopyContrib"}%
 %META:FIELD{name="Support" title="Support" value="http://foswiki.org/Support/CopyContrib"}%
-%META:FIELD{name="Version" title="Version" value="%$VERSION%"}%
