@@ -1,4 +1,39 @@
+# Copyright (C) 2013-2017 Michael Daum http://michaeldaumconsulting.com
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details, published at
+# http://www.gnu.org/copyleft/gpl.html
 
+###############################################################################
+# TopicStubAgent performs a specialised copy of TopicAgent.
+# TopicStubAgent will copy the source topic as a stub
+# TopicStubAgent:
+#   * does NOT copy attachments
+#   * does NOT copy text
+#   * does copy specific named fields, if they exist in the source
+#      * Parent
+#      * TopicTitle
+#      * Summary
+#      * WikiApplication
+#   * does insert the following meta data (Not available through TopicAgent)
+#      * META:FIELD{name="TopicType" title="TopicType" 
+#                   value="TopicStub, <types listed in the source topic>"}%
+#      * META:FORM{name="Applications.TopicType"}
+#      * META:FIELD{name="Target" title="Target" value="<fully qualified source topic>"}
+#      * META:FIELD{name="Section" title="Section" value=""}%
+#
+# Parameters are:
+#   * source
+#   * destination
+
+###############################################################################
 package Foswiki::Contrib::CopyContrib::TopicStubAgent;
 
 use strict;
@@ -8,29 +43,6 @@ use Foswiki::Contrib::CopyContrib::TopicAgent ();
 
 our @ISA = qw( Foswiki::Contrib::CopyContrib::TopicAgent );
 
-###############################################################################
-## TopicStubAgent performs a specialised copy of TopicAgent.
-## TopicStubAgent will copy the source topic as a stub
-## TopicStubAgent:
-##   * does NOT copy attachments
-##   * does NOT copy text
-##   * does copy specific named fields, if they exist in the source
-##      * Parent
-###     * TopicTitle
-##      * Summary
-##      * WikiApplication
-##   * does insert the following meta data (Not available through TopicAgent)
-##      * META:FIELD{name="TopicType" title="TopicType" 
-##                   value="TopicStub, <types listed in the source topic>"}%
-##      * META:FORM{name="Applications.TopicType"}
-##      * META:FIELD{name="Target" title="Target" value="<fully qualified source topic>"}
-##      * META:FIELD{name="Section" title="Section" value=""}%
-
-## Parameters are:
-##   * source
-##   * destination
-
-###############################################################################
 sub copy {
   my $this = shift;
 
@@ -135,18 +147,4 @@ sub addMetadata {
 }
 
 1;
-__END__
-# Copyright (C) 2013-2015 Michael Daum http://michaeldaumconsulting.com
-#
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at
-# http://www.gnu.org/copyleft/gpl.html
-
 

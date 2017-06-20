@@ -1,23 +1,25 @@
-# Copyright (C) 2014-2017 Michael Daum http://michaeldaumconsulting.com
-# This file is distributed under the same license as CopyContrib.
-# Michael Daum <daum@michaeldaumconsulting.com>, 2015.
-#
+# Foswiki translation for finnish
+# Translators:
+#   Heikki Toivonen <heikki@osafoundation.org>
+#   Tapio Salonsaari <take@nerd.fi> 2009
 msgid ""
 msgstr ""
-"Project-Id-Version: 2.0\n"
+"Project-Id-Version: Foswiki $Id\n"
+"Report-Msgid-Bugs-To: foswiki-svn@lists.sourceforge.net\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2014-06-10 10:44+\n"
-"Last-Translator: Michael Daum <daum@michaeldaumconsulting.com>\n"
-"Language-Team: de <LL@li.org>\n"
+"PO-Revision-Date: 2010-07-15 14:07+0200\n"
+"Last-Translator: ghfg <sdfsd@gmail.com>\n"
+"Language-Team: FINNISH <heikki@osafoundation.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Finnish\n"
 
 #: templates/oopscopy.tmpl:12 templates/oopscopy.tmpl:14
 #: templates/oopscopy.tmpl:16
 msgid "%1"
-msgstr ""
+msgstr "%1"
 
 #: data/System/CopyContrib.txt:134
 msgid "Allow overwrite"
@@ -25,7 +27,7 @@ msgstr ""
 
 #: data/System/CopyContrib.txt:116 data/System/CopyContrib.txt:126
 msgid "Attachments"
-msgstr ""
+msgstr "Liitteet"
 
 #: templates/oopscopy.tmpl:33
 msgid "Cannot overwrite existing destination topic [[%1]]."
@@ -36,16 +38,19 @@ msgid "Clear before copying"
 msgstr ""
 
 #: data/System/CopyContrib.txt:120 data/System/CopyContrib.txt:130
+#, fuzzy
 msgid "Comments"
-msgstr ""
+msgstr "Kommentit:"
 
 #: data/System/CopyContrib.txt:109 data/System/CopyContrib.txt:163
+#, fuzzy
 msgid "Destination"
-msgstr ""
+msgstr "Versio"
 
 #: data/System/CopyContrib.txt:137
+#, fuzzy
 msgid "Don't log changes"
-msgstr ""
+msgstr "(muutokset)"
 
 #: data/System/CopyContrib.txt:124
 msgid "Exclude parts"
@@ -56,8 +61,9 @@ msgid "Filter"
 msgstr ""
 
 #: data/System/CopyContrib.txt:135
+#, fuzzy
 msgid "Force a new revision"
-msgstr ""
+msgstr "Pakota uusi versio"
 
 #: data/System/CopyContrib.txt:114
 msgid "Include parts"
@@ -72,8 +78,9 @@ msgid "Minor change, don't notify others"
 msgstr ""
 
 #: data/System/CopyContrib.txt:133
+#, fuzzy
 msgid "Options"
-msgstr ""
+msgstr "Toiminto"
 
 #: data/System/CopyContrib.txt:118 data/System/CopyContrib.txt:128
 msgid "Parent"
@@ -81,7 +88,7 @@ msgstr ""
 
 #: data/System/CopyContrib.txt:117 data/System/CopyContrib.txt:127
 msgid "Preferences"
-msgstr ""
+msgstr "Asetukset"
 
 #: data/System/CopyContrib.txt:106 data/System/CopyContrib.txt:157
 msgid "Source"
@@ -89,7 +96,7 @@ msgstr ""
 
 #: data/System/CopyContrib.txt:141 data/System/CopyContrib.txt:168
 msgid "Submit"
-msgstr ""
+msgstr "Lähetä"
 
 #: templates/oopscopy.tmpl:19
 msgid "Successfully copied %1 topic(s) to [[%2.%HOMETOPIC%]]."
@@ -104,12 +111,14 @@ msgid "Successfully copied [[%1]] to [[%2]]."
 msgstr ""
 
 #: data/System/CopyContrib.txt:115 data/System/CopyContrib.txt:125
+#, fuzzy
 msgid "Text"
-msgstr ""
+msgstr "Leipäteksti"
 
 #: data/System/CopyContrib.txt:111
+#, fuzzy
 msgid "can be a topic or a web"
-msgstr ""
+msgstr "Siirrä aihe verkkoon:"
 
 #: data/System/CopyContrib.txt:121
 msgid "leave unchecked to copy all"
@@ -130,3 +139,4 @@ msgstr ""
 #: data/System/CopyContrib.txt:159
 msgid "specify source web"
 msgstr ""
+

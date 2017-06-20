@@ -1,11 +1,11 @@
-# Copyright (C) 2014 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2014-2017 Michael Daum http://michaeldaumconsulting.com
 # This file is distributed under the same license as CopyContrib.
 # Michael Daum <daum@michaeldaumconsulting.com>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
-"POT-Creation-Date: 2014-06-10 10:44+2\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: 2014-06-10 10:44+\n"
 "Last-Translator: Michael Daum <daum@michaeldaumconsulting.com>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -19,47 +19,47 @@ msgstr ""
 msgid "%1"
 msgstr "%1"
 
-#: data/System/CopyContrib.txt:119
+#: data/System/CopyContrib.txt:134
 msgid "Allow overwrite"
 msgstr "Überschreiben erlauben"
 
-#: data/System/CopyContrib.txt:101 data/System/CopyContrib.txt:111
+#: data/System/CopyContrib.txt:116 data/System/CopyContrib.txt:126
 msgid "Attachments"
 msgstr "Anhänge"
 
-#: templates/oopscopy.tmpl:27
+#: templates/oopscopy.tmpl:33
 msgid "Cannot overwrite existing destination topic [[%1]]."
 msgstr "Existierendes Ziel-Topic [[%1]] kann nicht überschrieben werden"
 
-#: data/System/CopyContrib.txt:123
+#: data/System/CopyContrib.txt:138
 msgid "Clear before copying"
 msgstr "Löschen vor kopieren"
 
-#: data/System/CopyContrib.txt:105 data/System/CopyContrib.txt:115
+#: data/System/CopyContrib.txt:120 data/System/CopyContrib.txt:130
 msgid "Comments"
 msgstr "Kommentare"
 
-#: data/System/CopyContrib.txt:148 data/System/CopyContrib.txt:94
+#: data/System/CopyContrib.txt:109 data/System/CopyContrib.txt:163
 msgid "Destination"
 msgstr "Ziel"
 
-#: data/System/CopyContrib.txt:122
+#: data/System/CopyContrib.txt:137
 msgid "Don't log changes"
 msgstr "Änderunge nicht protokollieren"
 
-#: data/System/CopyContrib.txt:109
+#: data/System/CopyContrib.txt:124
 msgid "Exclude parts"
 msgstr "Ausschließlich Teile"
 
-#: data/System/CopyContrib.txt:145
+#: data/System/CopyContrib.txt:160
 msgid "Filter"
 msgstr "Filter"
 
-#: data/System/CopyContrib.txt:120
+#: data/System/CopyContrib.txt:135
 msgid "Force a new revision"
 msgstr "Neue Version erzwingen"
 
-#: data/System/CopyContrib.txt:99
+#: data/System/CopyContrib.txt:114
 msgid "Include parts"
 msgstr "Einschließlich Teile"
 
@@ -67,27 +67,27 @@ msgstr "Einschließlich Teile"
 msgid "Merged %1 topic(s) to [[%2]]."
 msgstr "%1 Topic(s) zu [[%2]] vereinheitlicht"
 
-#: data/System/CopyContrib.txt:121
+#: data/System/CopyContrib.txt:136
 msgid "Minor change, don't notify others"
 msgstr "Geringfügigen Änderungen; keine Benachrichtigung Anderer"
 
-#: data/System/CopyContrib.txt:118
+#: data/System/CopyContrib.txt:133
 msgid "Options"
 msgstr "Optionen"
 
-#: data/System/CopyContrib.txt:103 data/System/CopyContrib.txt:113
+#: data/System/CopyContrib.txt:118 data/System/CopyContrib.txt:128
 msgid "Parent"
 msgstr "Eltern"
 
-#: data/System/CopyContrib.txt:102 data/System/CopyContrib.txt:112
+#: data/System/CopyContrib.txt:117 data/System/CopyContrib.txt:127
 msgid "Preferences"
 msgstr "Präferenzen"
 
-#: data/System/CopyContrib.txt:142 data/System/CopyContrib.txt:91
+#: data/System/CopyContrib.txt:106 data/System/CopyContrib.txt:157
 msgid "Source"
 msgstr "Quelle"
 
-#: data/System/CopyContrib.txt:126 data/System/CopyContrib.txt:153
+#: data/System/CopyContrib.txt:141 data/System/CopyContrib.txt:168
 msgid "Submit"
 msgstr "Absenden"
 
@@ -103,30 +103,30 @@ msgstr "Erfolgreich %1 Topic(s) nach [[%2]] kopiert"
 msgid "Successfully copied [[%1]] to [[%2]]."
 msgstr "Erfolgreich [[%1]] nach [[%2]] kopiert"
 
-#: data/System/CopyContrib.txt:100 data/System/CopyContrib.txt:110
+#: data/System/CopyContrib.txt:115 data/System/CopyContrib.txt:125
 msgid "Text"
 msgstr "Text"
 
-#: data/System/CopyContrib.txt:96
+#: data/System/CopyContrib.txt:111
 msgid "can be a topic or a web"
 msgstr "kann ein Topic oder Web sein"
 
-#: data/System/CopyContrib.txt:106
+#: data/System/CopyContrib.txt:121
 msgid "leave unchecked to copy all"
 msgstr "keine Auswahl, um alles zu kopieren"
 
-#: data/System/CopyContrib.txt:93
+#: data/System/CopyContrib.txt:108
 msgid "separate multiple topics with a comma"
 msgstr "trenne topics per Komma"
 
-#: data/System/CopyContrib.txt:147
+#: data/System/CopyContrib.txt:162
 msgid "specify a search query"
 msgstr "gebe eine Suche ein"
 
-#: data/System/CopyContrib.txt:150
+#: data/System/CopyContrib.txt:165
 msgid "specify destination web"
 msgstr "gebe ein Ziel-Web ein"
 
-#: data/System/CopyContrib.txt:144
+#: data/System/CopyContrib.txt:159
 msgid "specify source web"
 msgstr "gebe ein Quell-Web ein"

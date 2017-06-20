@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2015 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2013-2017 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -279,7 +279,16 @@ sub copyAttachments {
 
 ###############################################################################
 sub copy {
-  my $this = shift;
+  my ($this, $srcWeb, $srcTopic, $dstWeb, $dstTopic) = @_;
+
+  $this->{srcWeb} = $srcWeb if defined $srcWeb;
+  $this->{srcTopic} = $srcTopic if defined $srcTopic;
+  $this->{dstWeb} = $dstWeb if defined $dstWeb;
+  $this->{dstTopic} = $dstTopic if defined $dstTopic;
+
+  $this->{src} = $this->{srcWeb}.".".$this->{srcTopic};
+  $this->{dst} = $this->{dstWeb}.".".$this->{dstTopic};
+
 
   #$this->writeDebug("called copy() ".($this->{dry}?'...dry run':''));
   #$this->writeDebug("doClear=".$this->{doClear});

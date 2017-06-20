@@ -1,23 +1,28 @@
-# Copyright (C) 2014-2017 Michael Daum http://michaeldaumconsulting.com
-# This file is distributed under the same license as CopyContrib.
-# Michael Daum <daum@michaeldaumconsulting.com>, 2015.
-#
+# Foswiki translation for Spanish
+# Translators:
+#   Foswiki:Main/MiguelABayona, 2006.
+#   Foswiki:Main/WillNorris, 2005, 2006, 2009
+#   Marco Antonio Gonzalez Parra, 2006
+#   Foswiki:Main/SebastianKlus, 2008, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: 2.0\n"
+"Project-Id-Version: es\n"
+"Report-Msgid-Bugs-To: foswiki-svn@lists.sourceforge.net\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2014-06-10 10:44+\n"
-"Last-Translator: Michael Daum <daum@michaeldaumconsulting.com>\n"
-"Language-Team: de <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2016-12-13 14:40+0200\n"
+"Last-Translator: Raul F Rodriguez <raulfrodriguez10@gmail.com>\n"
+"Language-Team: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.4\n"
 
 #: templates/oopscopy.tmpl:12 templates/oopscopy.tmpl:14
 #: templates/oopscopy.tmpl:16
 msgid "%1"
-msgstr ""
+msgstr "%1"
 
 #: data/System/CopyContrib.txt:134
 msgid "Allow overwrite"
@@ -25,7 +30,7 @@ msgstr ""
 
 #: data/System/CopyContrib.txt:116 data/System/CopyContrib.txt:126
 msgid "Attachments"
-msgstr ""
+msgstr "Archivos adjuntos"
 
 #: templates/oopscopy.tmpl:33
 msgid "Cannot overwrite existing destination topic [[%1]]."
@@ -36,16 +41,19 @@ msgid "Clear before copying"
 msgstr ""
 
 #: data/System/CopyContrib.txt:120 data/System/CopyContrib.txt:130
+#, fuzzy
 msgid "Comments"
-msgstr ""
+msgstr "Comentarios:"
 
 #: data/System/CopyContrib.txt:109 data/System/CopyContrib.txt:163
+#, fuzzy
 msgid "Destination"
-msgstr ""
+msgstr "Consulta"
 
 #: data/System/CopyContrib.txt:137
+#, fuzzy
 msgid "Don't log changes"
-msgstr ""
+msgstr "(cambios)"
 
 #: data/System/CopyContrib.txt:124
 msgid "Exclude parts"
@@ -56,8 +64,9 @@ msgid "Filter"
 msgstr ""
 
 #: data/System/CopyContrib.txt:135
+#, fuzzy
 msgid "Force a new revision"
-msgstr ""
+msgstr "Forzar nueva revisión"
 
 #: data/System/CopyContrib.txt:114
 msgid "Include parts"
@@ -73,15 +82,16 @@ msgstr ""
 
 #: data/System/CopyContrib.txt:133
 msgid "Options"
-msgstr ""
+msgstr "Opciones"
 
 #: data/System/CopyContrib.txt:118 data/System/CopyContrib.txt:128
+#, fuzzy
 msgid "Parent"
-msgstr ""
+msgstr "Imprimible"
 
 #: data/System/CopyContrib.txt:117 data/System/CopyContrib.txt:127
 msgid "Preferences"
-msgstr ""
+msgstr "Preferencias"
 
 #: data/System/CopyContrib.txt:106 data/System/CopyContrib.txt:157
 msgid "Source"
@@ -89,7 +99,7 @@ msgstr ""
 
 #: data/System/CopyContrib.txt:141 data/System/CopyContrib.txt:168
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 #: templates/oopscopy.tmpl:19
 msgid "Successfully copied %1 topic(s) to [[%2.%HOMETOPIC%]]."
@@ -104,12 +114,14 @@ msgid "Successfully copied [[%1]] to [[%2]]."
 msgstr ""
 
 #: data/System/CopyContrib.txt:115 data/System/CopyContrib.txt:125
+#, fuzzy
 msgid "Text"
-msgstr ""
+msgstr "Cuerpo del Texto"
 
 #: data/System/CopyContrib.txt:111
+#, fuzzy
 msgid "can be a topic or a web"
-msgstr ""
+msgstr "Mover tema a la web:"
 
 #: data/System/CopyContrib.txt:121
 msgid "leave unchecked to copy all"
@@ -130,3 +142,4 @@ msgstr ""
 #: data/System/CopyContrib.txt:159
 msgid "specify source web"
 msgstr ""
+

@@ -1,23 +1,31 @@
-# Copyright (C) 2014-2017 Michael Daum http://michaeldaumconsulting.com
-# This file is distributed under the same license as CopyContrib.
-# Michael Daum <daum@michaeldaumconsulting.com>, 2015.
-#
+# Foswiki translation for Russian
+# Translators:
+#   Foswiki:Main/SergejZnamenskij, 2006
+#   Foswiki:Main/AndreyTkachenko, 2006 (Coordinator)
+#   Foswiki:Main/SergeyJSinx, 2006
+#   Foswiki:Main/AlexTananaev, 2007
+#   Foswiki:Main/AndrewPantyukhin, 2009
 msgid ""
 msgstr ""
-"Project-Id-Version: 2.0\n"
+"Project-Id-Version: ru $Id\n"
+"Report-Msgid-Bugs-To: foswiki-svn@lists.sourceforge.net\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2014-06-10 10:44+\n"
-"Last-Translator: Michael Daum <daum@michaeldaumconsulting.com>\n"
-"Language-Team: de <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2010-09-05 10:53+0000\n"
+"Last-Translator: Ivan Pesin <sp_ipesin@n-ix.com.ua>\n"
+"Language-Team: Russian Team <svz@latex.pereslavl.ru, falko-mail@inbox.ru, "
+"jsinx@front.ru, alex@amibel.ru, infofarmer@FreeBSD.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: templates/oopscopy.tmpl:12 templates/oopscopy.tmpl:14
 #: templates/oopscopy.tmpl:16
 msgid "%1"
-msgstr ""
+msgstr "%1"
 
 #: data/System/CopyContrib.txt:134
 msgid "Allow overwrite"
@@ -25,7 +33,7 @@ msgstr ""
 
 #: data/System/CopyContrib.txt:116 data/System/CopyContrib.txt:126
 msgid "Attachments"
-msgstr ""
+msgstr "Вложения"
 
 #: templates/oopscopy.tmpl:33
 msgid "Cannot overwrite existing destination topic [[%1]]."
@@ -36,16 +44,19 @@ msgid "Clear before copying"
 msgstr ""
 
 #: data/System/CopyContrib.txt:120 data/System/CopyContrib.txt:130
+#, fuzzy
 msgid "Comments"
-msgstr ""
+msgstr "Комментарии:"
 
 #: data/System/CopyContrib.txt:109 data/System/CopyContrib.txt:163
+#, fuzzy
 msgid "Destination"
-msgstr ""
+msgstr "Версия"
 
 #: data/System/CopyContrib.txt:137
+#, fuzzy
 msgid "Don't log changes"
-msgstr ""
+msgstr "(изменения)"
 
 #: data/System/CopyContrib.txt:124
 msgid "Exclude parts"
@@ -56,8 +67,9 @@ msgid "Filter"
 msgstr ""
 
 #: data/System/CopyContrib.txt:135
+#, fuzzy
 msgid "Force a new revision"
-msgstr ""
+msgstr "Создать новую редакцию"
 
 #: data/System/CopyContrib.txt:114
 msgid "Include parts"
@@ -72,8 +84,9 @@ msgid "Minor change, don't notify others"
 msgstr ""
 
 #: data/System/CopyContrib.txt:133
+#, fuzzy
 msgid "Options"
-msgstr ""
+msgstr "Действие"
 
 #: data/System/CopyContrib.txt:118 data/System/CopyContrib.txt:128
 msgid "Parent"
@@ -81,7 +94,7 @@ msgstr ""
 
 #: data/System/CopyContrib.txt:117 data/System/CopyContrib.txt:127
 msgid "Preferences"
-msgstr ""
+msgstr "Параметры"
 
 #: data/System/CopyContrib.txt:106 data/System/CopyContrib.txt:157
 msgid "Source"
@@ -89,7 +102,7 @@ msgstr ""
 
 #: data/System/CopyContrib.txt:141 data/System/CopyContrib.txt:168
 msgid "Submit"
-msgstr ""
+msgstr "Применить"
 
 #: templates/oopscopy.tmpl:19
 msgid "Successfully copied %1 topic(s) to [[%2.%HOMETOPIC%]]."
@@ -104,12 +117,14 @@ msgid "Successfully copied [[%1]] to [[%2]]."
 msgstr ""
 
 #: data/System/CopyContrib.txt:115 data/System/CopyContrib.txt:125
+#, fuzzy
 msgid "Text"
-msgstr ""
+msgstr "В тексте страницы"
 
 #: data/System/CopyContrib.txt:111
+#, fuzzy
 msgid "can be a topic or a web"
-msgstr ""
+msgstr "Переместить тему в раздел:"
 
 #: data/System/CopyContrib.txt:121
 msgid "leave unchecked to copy all"
@@ -130,3 +145,4 @@ msgstr ""
 #: data/System/CopyContrib.txt:159
 msgid "specify source web"
 msgstr ""
+

@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2015 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2013-2017 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -46,27 +46,27 @@ sub writeDebug {
 sub parseRequestObject {
   my ($this, $request) = @_;
 
-  $this->{debug} = Foswiki::Func::isTrue(scalar $request->param('debug'), $this->{debug})
+  $this->{debug} = Foswiki::Func::isTrue($request->param('debug'), $this->{debug})
     unless defined $this->{debug};
 
   #$this->writeDebug("called parseRequestObject()");
 
-  $this->{dry} = Foswiki::Func::isTrue(scalar $request->param('dry'), $this->{dry})
+  $this->{dry} = Foswiki::Func::isTrue($request->param('dry'), $this->{dry})
     unless defined $this->{dry};
 
-  $this->{onlyNew} = Foswiki::Func::isTrue(scalar $request->param('onlynew'), 1)
+  $this->{onlyNew} = Foswiki::Func::isTrue($request->param('onlynew'), 1)
     unless defined $this->{onlyNew};
 
-  $this->{doClear} = Foswiki::Func::isTrue(scalar $request->param('clear'), 0)
+  $this->{doClear} = Foswiki::Func::isTrue($request->param('clear'), 0)
     unless defined $this->{doClear};
 
-  $this->{forceNewRevision} = Foswiki::Func::isTrue(scalar $request->param('forcenewrevision'), 0)
+  $this->{forceNewRevision} = Foswiki::Func::isTrue($request->param('forcenewrevision'), 0)
     unless defined $this->{forceNewRevision};
 
-  $this->{dontLog} = Foswiki::Func::isTrue(scalar $request->param('dontlog'), 0)
+  $this->{dontLog} = Foswiki::Func::isTrue($request->param('dontlog'), 0)
     unless defined $this->{dontLog};
 
-  $this->{minor} = Foswiki::Func::isTrue(scalar $request->param('minor'), 0)
+  $this->{minor} = Foswiki::Func::isTrue($request->param('minor'), 0)
     unless defined $this->{minor};
 
   # TODO

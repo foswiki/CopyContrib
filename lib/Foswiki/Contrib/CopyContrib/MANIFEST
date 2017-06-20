@@ -1,10 +1,14 @@
+!noci
 bin/copy 0755
 data/System/CopyContrib.txt 0644
+lib/Foswiki/Contrib/CopyContrib/ApplicationAgent.pm 0644
 lib/Foswiki/Contrib/CopyContrib/Config.spec 0644
 lib/Foswiki/Contrib/CopyContrib/CopyAgent.pm 0644
+lib/Foswiki/Contrib/CopyContrib/DEPENDENCIES 0644
 lib/Foswiki/Contrib/CopyContrib.pm 0644
 lib/Foswiki/Contrib/CopyContrib/TopicAgent.pm 0644
 lib/Foswiki/Contrib/CopyContrib/TopicListAgent.pm 0644
+lib/Foswiki/Contrib/CopyContrib/TopicStubAgent.pm 0644
 lib/Foswiki/Contrib/CopyContrib/WebAgent.pm 0644
 locale/CopyContrib/de.po 0644
 locale/CopyContrib/Foswiki.pot 0644
