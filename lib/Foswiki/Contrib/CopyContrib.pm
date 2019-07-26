@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2017 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2013-2019 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -17,12 +17,13 @@ use strict;
 use warnings;
 
 use Foswiki::Func();
+use Foswiki::Plugins();
 use Error qw( :try );
 use Encode();
 use Foswiki::OopsException ();
 
-our $VERSION = '3.00';
-our $RELEASE = '30 Jun 2017';
+our $VERSION = '4.00';
+our $RELEASE = '26 Jul 2019';
 our $SHORTDESCRIPTION = 'Copies webs, topics, attachments, or part of them';
 
 our %agentImpls = (
@@ -46,6 +47,25 @@ sub registerAgent {
 }
 
 ###############################################################################
+sub copy {
+  my $mode = shift;
+
+  my $impl = $agentImpls{$mode};
+  throw Error::Simple("Unknown copy mode '$mode'") unless defined $impl;
+
+  eval "require $impl";
+  throw Error::Simple($@) if $@;
+
+  my $session = $Foswik::Plugins::SESSION;
+  my $agent = $impl->new($session, @_);
+  my @result = $agent->copy();
+
+  $agent->finish();
+
+  return @result;
+}
+
+###############################################################################
 sub copyCgi {
   my $session = shift;
 
@@ -66,13 +86,15 @@ sub copyCgi {
     my $mode = $request->param("mode");
     throw Error::Simple("No copy mode") unless defined $mode;
 
-    my $agent = $agentImpls{$mode};
-    throw Error::Simple("Unknown copy mode '$mode'") unless defined $agent;
+    my $impl = $agentImpls{$mode};
+    throw Error::Simple("Unknown copy mode '$mode'") unless defined $impl;
 
-    eval "require $agent";
+    eval "require $impl";
     throw Error::Simple($@) if $@;
 
-    @result = $agent->new($session)->parseRequestObject($request)->copy();
+    my $agent = $impl->new($session);
+    @result = $agent->parseRequestObject($request)->copy();
+    $agent->finish();
     
   } catch Error::Simple with {
     my $error = shift;
@@ -110,8 +132,6 @@ sub copyCgi {
     my $target = $session->redirectto();
 
     if ($target) {
-      $msg = Foswiki::Func::renderText($msg);
-      $target .= (($target =~ /\?/) ? '&':'?').'_copy_result='.urlEncode($msg);
       $session->redirect($target);
     } else {
       my @params = ("Success");

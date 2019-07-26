@@ -23,13 +23,14 @@
 %TMPL:DEF{"topiclist_success"}%%MAKETEXT{"Successfully copied [_1] topic(s) to [[[_2]]]." args="%PARAM2%, %PARAM3%"}%%TMPL:END%
 
 %TMPL:DEF{"topic_success"}%%MAKETEXT{"Successfully copied [[[_1]]] to [[[_2]]]." args="%PARAM2%, %PARAM3%"}%
-<literal>
-<script>
-window.location.href = '%SCRIPTURL{"view"}%/%PARAM3%';
-</script>
-</literal>
-%TMPL:END%
+%IF{"not context command_line" 
+  then="<literal>
+    <script>
+    window.location.href = '%SCRIPTURL{"view"}%/%PARAM3%';
+    </script>
+    </literal>"
+}%%TMPL:END%
 
 %TMPL:DEF{"overwrite_error"}%%MAKETEXT{"Cannot overwrite existing destination topic [[[_1]]]." args="%PARAM2%"}% %TMPL:P{"goback" target="%BASEWEB%.%BASETOPIC%"}%%TMPL:END%
 
-%TMPL:DEF{"access_denied_error"}%%MAKTEXT{"Access denied on [[[_1]]]." args="%PARAM2%"}% %TMPL:P{"goback" target="%BASEWEB%.%BASETOPIC%"}%%TMPL:END%
+%TMPL:DEF{"access_denied_error"}%%MAKETEXT{"Access denied on <nop>[_1]." args="%PARAM2%"}% %TMPL:P{"goback" target="%BASEWEB%.%BASETOPIC%"}%%TMPL:END%

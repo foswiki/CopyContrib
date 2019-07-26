@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BramVanOosterhout" comment="" date="1490961236" format="1.1" version="7"}%
+%META:TOPICINFO{author="ProjectContributor" comment="" date="1564156088" format="1.1"  version="1"}%
 ---+!! %TOPIC%
 %FORMFIELD{"Description"}%
 
@@ -53,16 +53,22 @@ a copy agent is created to perform the actual operation. The basic skeleton for 
 | =minor= | True if this change is not to be notified | =off= |
 | =clear= | boolean flag; when enabled data on the destination will be _deleted_ first before copying the source data; (exception: text is always cleared before copying it over); when disabled data of source and destination will be merged | =off= |
 | =redirectto= | topic or url where to redirect the browser after a successful copy operation | |
+| =nohandlers= | boolean flag; when enabled plugin handlers will not be called, such as =beforeSaveHander= and =afterSaveHandler= | =off= |
 
 ---+++ Mode: =topic=
 
 | *Name* | *Description* | *Default* |
 | =source= | the source topic to be copied | =%<nop>BASEWEB%.%<nop>BASETOPIC%= |
-| =destination= | the destination topic where to copy =source= to | =source= |
+| =dstWeb= | the destination web where to copy =source= to | =%<nop>BASEWEB%= |
+| =dstTopic=, =destination= | the destination topic where to copy =source= to | =source= |
 | =includepart=, =includeparts=  | a list of parts of a topic to be copied; known part-ids are =text=, =attachments=, =all=, =preferences=, =parent=, =form=, =fields=, or any other custom meta data alias such as =comment= from [[Foswiki:Extensions/MetaCommentPlugin][MetaCommentPlugin]] | =all= |
 | =excludepart=, =excludeparts= | a list of parts to exclude from the copy process | |
 | =include&lt;part-id>= | when meta data is named as is the case for =fields= you may specify a regular expression in =includefields= that all fields must match when copying formfields | |
 | =exclude&lt;part-id>= | same as =include&lt;part-id>= but in reverse logic | |
+| =fromrev= | specify the starting revision to be copied over; if left undefined, will only the top revision be copied | |
+| =torev= | specify the last revision to be copied over | |
+| =preservetopicinfo= | boolean flag; this will try to preserve the original date and authorship of the source; note that this may not always be possible when the top revision of the target is earlier than the revision(s) to be copied over; further note, that attachments of old revisions not present in the top revision cannot be recreated on the taregt topic as they are versioned independently | |
+| =trashsource= | boolean flag; this will trash the source after successfully copying it to the target; note: when only parts of the topic have been copied will the rest of it get lost! | =off= |
 
 ---+++ Mode: =topics=
 
@@ -138,6 +144,20 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
      <label><input type="checkbox" name="clear" value="on">%MAKETEXT{"Clear before copying"}%</label>
   </div>
   <div class="foswikiFormStep">
+    <h3>%MAKETEXT{"Advanced Options"}%:</h3>
+    <table class='foswikiLayoutTable'>
+    <tr>
+      <th>%MAKETEXT{"From Version"}%</th>
+      <td><input type="text" name="fromrev" class="foswikiInputField" value="%REVINFO{format="$rev" rev="%URLPARAM{"rev"}%"}%" size="3" /></td>
+    </tr>
+    <tr>
+      <th>%MAKETEXT{"To Version"}%</th>
+      <td><input type="text" name="torev" class="foswikiInputField" value="%REVINFO{format="$rev" rev="%URLPARAM{"rev"}%"}%" size="3" /></td>
+    </tr>
+    </table>
+    <label><input type="checkbox" name="preservetopicinfo" value="on" checked />%MAKETEXT{"Preserver author and revision information"}%</label>
+  </div>
+  <div class="foswikiFormStep">
     %BUTTON{"%MAKETEXT{"Submit"}%" icon="tick" type="submit"}%%CLEAR%
   </div>
 </div>
@@ -179,22 +199,24 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 ---++ Change History
 
 %TABLE{columnwidths="7em" tablewidth="100%"}%
+|  26 Jul 2019: | fix use of store; create a new revision when copying attachments instead of erasing anything that existed before | 
+|  11 Jun 2019: | added =copy= perl api; added =nohandlers= option; fixed copying attachments |
+|  21 Nov 2018: | added =trashsource= to topic agent; fixed memory leaks |
+|  09 Feb 2018: | added feature to restore a subset of topic revisions |
 |  30 Jun 2017: | added =application= mode (by Foswiki:Main/BramVanOosterhout) |
 |  25 Sep 2015: | added support for unicode foswiki |
 |  10 Jun 2014: | improved error handling; make messages translatable |
 |  30 May 2014: | added forcenewrevision, minor and dontlog |
 |  22 Oct 2013: | initial release |
 
-<!--
--->
 
 %META:FORM{name="PackageForm"}%
 %META:FIELD{name="Author" title="Author" value="Michael Daum"}%
-%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2013-2017, Michael Daum http://michaeldaumconsulting.com"}%
-%META:FIELD{name="Description" title="Description" value="%25$SHORTDESCRIPTION%25"}%
-%META:FIELD{name="Home" title="Home" value="https://foswiki.org/Extensions/CopyContrib"}%
-%META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
-%META:FIELD{name="Release" title="Release" value="%25$RELEASE%25"}%
-%META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/CopyContrib"}%
-%META:FIELD{name="Support" title="Support" value="https://foswiki.org/Support/CopyContrib"}%
 %META:FIELD{name="Version" title="Version" value="%25$VERSION%25"}%
+%META:FIELD{name="Release" title="Release" value="%25$RELEASE%25"}%
+%META:FIELD{name="Description" title="Description" value="%25$SHORTDESCRIPTION%25"}%
+%META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/CopyContrib"}%
+%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2013-2019, Michael Daum http://michaeldaumconsulting.com"}%
+%META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
+%META:FIELD{name="Home" title="Home" value="https://foswiki.org/Extensions/CopyContrib"}%
+%META:FIELD{name="Support" title="Support" value="https://foswiki.org/Support/CopyContrib"}%

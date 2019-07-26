@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2017 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2013-2019 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -37,6 +37,14 @@ sub new {
 }
 
 ###############################################################################
+# optional destructor
+sub finish {
+  my $this = shift;
+
+  undef $this->{session};
+}
+
+###############################################################################
 sub writeDebug {
   my $this = shift;
   print STDERR $this->{className}." - $_[0]\n" if $this->{debug};
@@ -62,6 +70,9 @@ sub parseRequestObject {
 
   $this->{forceNewRevision} = Foswiki::Func::isTrue($request->param('forcenewrevision'), 0)
     unless defined $this->{forceNewRevision};
+
+  $this->{noHandlers} = Foswiki::Func::isTrue($request->param('nohandlers'), 0)
+    unless defined $this->{nohandlers};
 
   $this->{dontLog} = Foswiki::Func::isTrue($request->param('dontlog'), 0)
     unless defined $this->{dontLog};
