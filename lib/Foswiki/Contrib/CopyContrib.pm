@@ -22,8 +22,8 @@ use Error qw( :try );
 use Encode();
 use Foswiki::OopsException ();
 
-our $VERSION = '4.00';
-our $RELEASE = '26 Jul 2019';
+our $VERSION = '4.01';
+our $RELEASE = '12 Nov 2019';
 our $SHORTDESCRIPTION = 'Copies webs, topics, attachments, or part of them';
 
 our %agentImpls = (
@@ -53,7 +53,9 @@ sub copy {
   my $impl = $agentImpls{$mode};
   throw Error::Simple("Unknown copy mode '$mode'") unless defined $impl;
 
-  eval "require $impl";
+  my $path = $impl . '.pm';
+  $path =~ s/::/\//g;
+  eval {require $path};
   throw Error::Simple($@) if $@;
 
   my $session = $Foswik::Plugins::SESSION;
@@ -89,7 +91,9 @@ sub copyCgi {
     my $impl = $agentImpls{$mode};
     throw Error::Simple("Unknown copy mode '$mode'") unless defined $impl;
 
-    eval "require $impl";
+    my $path = $impl . '.pm';
+    $path =~ s/::/\//g;
+    eval {require $path};
     throw Error::Simple($@) if $@;
 
     my $agent = $impl->new($session);
