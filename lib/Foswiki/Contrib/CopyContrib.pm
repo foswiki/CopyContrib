@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2019 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2013-2024 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -22,9 +22,10 @@ use Error qw( :try );
 use Encode();
 use Foswiki::OopsException ();
 
-our $VERSION = '4.01';
-our $RELEASE = '12 Nov 2019';
+our $VERSION = '5.00';
+our $RELEASE = '%$RELEASE%';
 our $SHORTDESCRIPTION = 'Copies webs, topics, attachments, or part of them';
+our $LICENSECODE = '%$LICENSECODE%';
 
 our %agentImpls = (
   'topic' => 'Foswiki::Contrib::CopyContrib::TopicAgent',

@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2019 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2013-2024 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -124,3 +124,5 @@ sub copy {
 
   return ("topiclist_merge_success", $count, "$this->{dstWeb}.$this->{dstTopic}");
 }
+
+1;

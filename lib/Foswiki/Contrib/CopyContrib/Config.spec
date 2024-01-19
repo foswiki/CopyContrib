@@ -1,6 +1,6 @@
 # ---+ Extensions
 # ---++ CopyContrib
-# **PERL**
+# **PERL EXPERT**
 # This setting is required to enable executing the copy script from the bin directory
 $Foswiki::cfg{SwitchBoard}{copy} = { 
   package  => 'Foswiki::Contrib::CopyContrib',

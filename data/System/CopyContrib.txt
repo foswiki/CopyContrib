@@ -199,6 +199,7 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 ---++ Change History
 
 %TABLE{columnwidths="7em" tablewidth="100%"}%
+|  19 Jan 2024: | added support for AUTOINC targets while copying topics |
 |  12 Nov 2019: | fix copy cgi script |
 |  26 Jul 2019: | fix use of store; create a new revision when copying attachments instead of erasing anything that existed before | 
 |  11 Jun 2019: | added =copy= perl api; added =nohandlers= option; fixed copying attachments |
@@ -217,7 +218,7 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 %META:FIELD{name="Release" title="Release" value="%25$RELEASE%25"}%
 %META:FIELD{name="Description" title="Description" value="%25$SHORTDESCRIPTION%25"}%
 %META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/CopyContrib"}%
-%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2013-2019, Michael Daum http://michaeldaumconsulting.com"}%
+%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2013-2024, Michael Daum"}%
 %META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
 %META:FIELD{name="Home" title="Home" value="https://foswiki.org/Extensions/CopyContrib"}%
 %META:FIELD{name="Support" title="Support" value="https://foswiki.org/Support/CopyContrib"}%

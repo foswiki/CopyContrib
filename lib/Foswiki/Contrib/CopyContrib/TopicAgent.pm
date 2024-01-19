@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2019 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2013-2024 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -37,9 +37,10 @@ sub parseRequestObject {
   $this->{dstWeb} = $request->param("dstWeb") || $this->{baseWeb};
   $this->{dstTopic} = $request->param('destination') || $request->param("dstTopic") || $this->{src};
   ($this->{dstWeb}, $this->{dstTopic}) = Foswiki::Func::normalizeWebTopicName($this->{dstWeb}, $this->{dstTopic});
+  $this->{dstTopic} = $this->expandAUTOINC($this->{dstWeb}, $this->{dstTopic});
 
   throw Error::Simple("invalid topic name")
-    unless Foswiki::Func::isValidTopicName($this->{dstTopic});
+    unless Foswiki::Func::isValidTopicName($this->{dstTopic}, 1);
 
   throw Error::Simple("invalid web name")
     unless Foswiki::Func::isValidWebName($this->{dstWeb});
@@ -400,10 +401,11 @@ sub copy {
   $this->{srcWeb} = $srcWeb if defined $srcWeb;
   $this->{srcTopic} = $srcTopic if defined $srcTopic;
   $this->{dstWeb} = $dstWeb if defined $dstWeb;
-  $this->{dstTopic} = $dstTopic if defined $dstTopic;
+  $this->{dstTopic} = $this->expandAUTOINC($dstWeb, $dstTopic) if defined $dstTopic;
 
   $this->{src} = $this->{srcWeb} . "." . $this->{srcTopic};
   $this->{dst} = $this->{dstWeb} . "." . $this->{dstTopic};
+
 
   #$this->writeDebug("called copy() ".($this->{dry}?'...dry run':''));
   #$this->writeDebug("doClear=".$this->{doClear});
@@ -472,10 +474,55 @@ sub copy {
     $this->read(1, $rev);
   }
 
-  # delete the source on requesst
+  # delete the source on request
   $this->trashTopic if $this->{trashSource};
 
   return ("topic_success", "$this->{srcWeb}.$this->{srcTopic}", "$this->{dstWeb}.$this->{dstTopic}");
+}
+
+sub expandAUTOINC {
+  my ($this, $web, $topic) = @_;
+
+  $web //= $this->{dstWeb};
+  $topic //= $this->{dstTopic};
+
+  # Do not remove, keep as undocumented feature for compatibility with
+  # TWiki 4.0.x: Allow for dynamic topic creation by replacing strings
+  # of at least 10 x's XXXXXX with a next-in-sequence number.
+  if ($topic =~ m/X{10}/) {
+    my $n = 0;
+    my $baseTopic = $topic;
+    my $topicObject = Foswiki::Meta->new($this->{session}, $web, $baseTopic);
+    $topicObject->clearLease();
+    do {
+      $topic = $baseTopic;
+      $topic =~ s/X{10}X*/$n/e;
+      $n++;
+    } while ($this->{session}>topicExists($web, $topic));
+  }
+
+  # Allow for more flexible topic creation with sortable names.
+  # See Codev.AutoIncTopicNameOnSave
+  if ($topic =~ m/^(.*)AUTOINC(\d+)(.*)$/) {
+    my $pre = $1;
+    my $start = $2;
+    my $pad = length($start);
+    my $post = $3;
+    my $topicObject = Foswiki::Meta->new($this->{session}, $web, $topic);
+    $topicObject->clearLease();
+    my $webObject = Foswiki::Meta->new($this->{session}, $web);
+    my $it = $webObject->eachTopic();
+
+    while ($it->hasNext()) {
+      my $tn = $it->next();
+      next unless $tn =~ m/^${pre}(\d+)${post}$/;
+      $start = $1 + 1 if ($1 >= $start);
+    }
+    my $next = sprintf("%0${pad}d", $start);
+    $topic =~ s/AUTOINC[0-9]+/$next/;
+  }
+
+  return $topic;
 }
 
 1;
