@@ -24,7 +24,6 @@ use Error qw( :try );
 
 our @ISA = qw( Foswiki::Contrib::CopyContrib::CopyAgent );
 
-###############################################################################
 sub parseRequestObject {
   my ($this, $request) = @_;
 
@@ -37,6 +36,7 @@ sub parseRequestObject {
   $this->{dstWeb} = $request->param("dstWeb") || $this->{baseWeb};
   $this->{dstTopic} = $request->param('destination') || $request->param("dstTopic") || $this->{src};
   ($this->{dstWeb}, $this->{dstTopic}) = Foswiki::Func::normalizeWebTopicName($this->{dstWeb}, $this->{dstTopic});
+  $this->{dstTopic} = _safeTopicName($this->{dstTopic});
   $this->{dstTopic} = $this->expandAUTOINC($this->{dstWeb}, $this->{dstTopic});
 
   throw Error::Simple("invalid topic name")
@@ -116,7 +116,6 @@ sub parseRequestObject {
   return $this;
 }
 
-###############################################################################
 sub finish {
   my $this = shift;
 
@@ -129,7 +128,6 @@ sub finish {
   undef $this->{metaOfAlias};
 }
 
-###############################################################################
 sub getKnownMetaAliases {
   my $this = shift;
 
@@ -149,7 +147,6 @@ sub getKnownMetaAliases {
   return keys %{$this->{metaOfAlias}};
 }
 
-###############################################################################
 sub getMetaKeyOfAlias {
   my ($this, $alias) = @_;
 
@@ -157,7 +154,6 @@ sub getMetaKeyOfAlias {
   return $this->{metaOfAlias}{$alias};
 }
 
-###############################################################################
 sub checkAccess {
   my $this = shift;
 
@@ -176,7 +172,6 @@ sub checkAccess {
   ) unless Foswiki::Func::checkAccessPermission('change', $user, undef, $this->{dstTopic}, $this->{dstWeb});
 }
 
-###############################################################################
 sub read {
   my ($this, $doReload, $rev) = @_;
 
@@ -202,7 +197,6 @@ sub read {
   return ($this->{srcMeta}, $this->{dstMeta});
 }
 
-###############################################################################
 sub copyPart {
   my ($this, $partId, $rev) = @_;
 
@@ -270,7 +264,6 @@ sub copyPart {
   #$this->writeDebug("copied $count $partId item(s)") if $count;
 }
 
-###############################################################################
 sub trashTopic {
   my ($this, $web, $topic) = @_;
 
@@ -291,7 +284,6 @@ sub trashTopic {
   Foswiki::Func::moveTopic($this->{srcWeb}, $this->{srcTopic}, $targetWeb, $targetTopic);
 }
 
-###############################################################################
 sub trashAttachments {
   my ($this, $rev) = @_;
 
@@ -306,7 +298,6 @@ sub trashAttachments {
   }
 }
 
-###############################################################################
 sub trashAttachment {
   my ($this, $name, $trash) = @_;
 
@@ -334,7 +325,6 @@ sub trashAttachment {
   return $toName;
 }
 
-###############################################################################
 sub copyAttachments {
   my ($this, $rev) = @_;
 
@@ -394,7 +384,6 @@ sub copyAttachments {
   }
 }
 
-###############################################################################
 sub copy {
   my ($this, $srcWeb, $srcTopic, $dstWeb, $dstTopic) = @_;
 
@@ -524,5 +513,18 @@ sub expandAUTOINC {
 
   return $topic;
 }
+
+# from Foswiki::UI::Rename
+sub _safeTopicName {
+  my ($topic) = @_;
+
+  $topic =~ s/\s//g;
+  $topic = ucfirst $topic; # Item3270
+  $topic =~ s![./]!_!g;
+  $topic =~ s/($Foswiki::cfg{NameFilter})//g;
+
+  return $topic;
+}
+
 
 1;

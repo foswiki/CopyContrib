@@ -23,7 +23,6 @@ use Error qw( :try );
 
 our @ISA = qw( Foswiki::Contrib::CopyContrib::CopyAgent );
 
-###############################################################################
 sub parseRequestObject {
   my ($this, $request) = @_;
 
@@ -59,7 +58,6 @@ sub parseRequestObject {
   return $this;
 }
 
-###############################################################################
 sub finish {
   my $this = shift;
 
@@ -68,7 +66,6 @@ sub finish {
   undef $this->{srcTopics};
 }
 
-###############################################################################
 sub copy {
   my $this = shift;
 

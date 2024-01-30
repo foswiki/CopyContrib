@@ -199,6 +199,7 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 ---++ Change History
 
 %TABLE{columnwidths="7em" tablewidth="100%"}%
+|  30 Jan 2024: | make sure all created topics start with an uppercase char |
 |  19 Jan 2024: | added support for AUTOINC targets while copying topics |
 |  12 Nov 2019: | fix copy cgi script |
 |  26 Jul 2019: | fix use of store; create a new revision when copying attachments instead of erasing anything that existed before | 

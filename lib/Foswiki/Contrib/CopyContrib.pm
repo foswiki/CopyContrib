@@ -22,7 +22,7 @@ use Error qw( :try );
 use Encode();
 use Foswiki::OopsException ();
 
-our $VERSION = '5.00';
+our $VERSION = '5.10';
 our $RELEASE = '%$RELEASE%';
 our $SHORTDESCRIPTION = 'Copies webs, topics, attachments, or part of them';
 our $LICENSECODE = '%$LICENSECODE%';
@@ -36,7 +36,6 @@ our %agentImpls = (
 #  'webs' => 'Foswiki::Contrib::CopyContrib::WebListAgent',
 );
 
-###############################################################################
 sub registerAgent {
   my ($mode, $package) = @_;
 
@@ -47,7 +46,6 @@ sub registerAgent {
   return $prevImpl;
 }
 
-###############################################################################
 sub copy {
   my $mode = shift;
 
@@ -68,7 +66,6 @@ sub copy {
   return @result;
 }
 
-###############################################################################
 sub copyCgi {
   my $session = shift;
 

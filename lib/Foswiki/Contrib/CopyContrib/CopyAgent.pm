@@ -18,7 +18,6 @@ use warnings;
 
 use Foswiki::Func ();
 
-###############################################################################
 sub new {
   my ($class, $session) = @_;
 
@@ -36,7 +35,6 @@ sub new {
   return $this;
 }
 
-###############################################################################
 # optional destructor
 sub finish {
   my $this = shift;
@@ -44,13 +42,11 @@ sub finish {
   undef $this->{session};
 }
 
-###############################################################################
 sub writeDebug {
   my $this = shift;
   print STDERR $this->{className}." - $_[0]\n" if $this->{debug};
 }
 
-###############################################################################
 sub parseRequestObject {
   my ($this, $request) = @_;
 
@@ -86,7 +82,6 @@ sub parseRequestObject {
   return $this;
 }
 
-###############################################################################
 sub copy {
   my $this = shift;
 

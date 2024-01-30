@@ -11,7 +11,6 @@
 # GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
 
-###############################################################################
 # TopicStubAgent performs a specialised copy of TopicAgent.
 # TopicStubAgent will copy the source topic as a stub
 # TopicStubAgent:
@@ -33,7 +32,6 @@
 #   * source
 #   * destination
 
-###############################################################################
 package Foswiki::Contrib::CopyContrib::TopicStubAgent;
 
 use strict;
@@ -98,7 +96,6 @@ sub copy {
   return ("topic_success", "$this->{srcWeb}.$this->{srcTopic}", "$this->{dstWeb}.$this->{dstTopic}");
 }
 
-################################################################
 sub isTopicStub {
   my $this = shift;
 
@@ -110,7 +107,6 @@ sub isTopicStub {
   return 0;
 }
 
-################################################################
 sub defineFields {
   my $this = shift;
 
@@ -135,7 +131,6 @@ sub defineFields {
   return @newfields;
 }
 
-################################################################
 sub addMetadata {
   my $this = shift;
 
