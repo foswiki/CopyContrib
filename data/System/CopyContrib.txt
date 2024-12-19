@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="" date="1573547052" format="1.1"  version="1"}%
+%META:TOPICINFO{author="ProjectContributor" comment="" date="1734611584" format="1.1"  version="1"}%
 ---+!! %TOPIC%
 %FORMFIELD{"Description"}%
 
@@ -199,6 +199,7 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 ---++ Change History
 
 %TABLE{columnwidths="7em" tablewidth="100%"}%
+|  25 Jul 2024: | fixed copying topics within a system web |
 |  30 Jan 2024: | make sure all created topics start with an uppercase char |
 |  19 Jan 2024: | added support for AUTOINC targets while copying topics |
 |  12 Nov 2019: | fix copy cgi script |

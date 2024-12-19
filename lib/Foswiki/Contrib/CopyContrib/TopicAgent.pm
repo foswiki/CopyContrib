@@ -43,7 +43,7 @@ sub parseRequestObject {
     unless Foswiki::Func::isValidTopicName($this->{dstTopic}, 1);
 
   throw Error::Simple("invalid web name")
-    unless Foswiki::Func::isValidWebName($this->{dstWeb});
+    unless Foswiki::Func::isValidWebName($this->{dstWeb}, 1);
 
   throw Error::Simple("web does not exist")
     unless Foswiki::Func::webExists($this->{dstWeb});
@@ -75,9 +75,6 @@ sub parseRequestObject {
   $this->{includeparts} = {map { $_ => 1 } @includeParts};
   $this->{excludeparts} = {map { $_ => 1 } @excludeParts};
 
-  #print STDERR Data::Dumper->Dump([$this->{includeparts}])"\n";
-  #print STDERR Data::Dumper->Dump([$this->{excludeparts}])"\n";
-
   $this->writeDebug("includeparts=" . join(", ", sort keys %{$this->{includeparts}}))
     if defined $this->{includeparts};
   $this->writeDebug("excludeparts=" . join(", ", sort keys %{$this->{excludeparts}}))
@@ -108,10 +105,6 @@ sub parseRequestObject {
     $this->{fromRev} = $this->{toRev};
     $this->{toRev} = $tmp;
   }
-
-  #  if ($this->{debug}) {
-  #    print STDERR Data::Dumper->Dump([$this])"\n";
-  #  }
 
   return $this;
 }
@@ -250,7 +243,6 @@ sub copyPart {
         $this->writeDebug("... skipping $item->{name}");
         next;
       }
-      #print STDERR Data::Dumper->Dump([$item])"\n";
       $this->writeDebug("... copying $item->{name}");
       $this->{dstMeta}->putKeyed($metaDataName, $item);
     } else {

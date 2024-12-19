@@ -22,7 +22,7 @@ use Error qw( :try );
 use Encode();
 use Foswiki::OopsException ();
 
-our $VERSION = '5.10';
+our $VERSION = '5.20';
 our $RELEASE = '%$RELEASE%';
 our $SHORTDESCRIPTION = 'Copies webs, topics, attachments, or part of them';
 our $LICENSECODE = '%$LICENSECODE%';
@@ -123,15 +123,24 @@ sub copyCgi {
     }
   };
   
-  if (@result) {
-    $msg = renderTemplate(@result);
-    $msg = Foswiki::Func::expandCommonVariables($msg);
-  }
-
   if ($isCommandLine) {
+    if (@result) {
+      $msg = renderTemplate(@result);
+      $msg = Foswiki::Func::expandCommonVariables($msg);
+    }
     print $msg."\n";
   } else {
     my $target = $session->redirectto();
+
+    unless ($target) {
+      if ($result[0] eq 'topic_success') {
+        $target = $result[2];
+        if ($target) {
+          my ($dstWeb, $dstTopic) = Foswiki::Func::normalizeWebTopicName(undef, $target);
+          $target = Foswiki::Func::getViewUrl($dstWeb, $dstTopic);
+        }
+      }
+    }
 
     if ($target) {
       $session->redirect($target);
