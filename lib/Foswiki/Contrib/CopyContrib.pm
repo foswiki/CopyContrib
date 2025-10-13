@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2024 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2013-2025 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -22,7 +22,7 @@ use Error qw( :try );
 use Encode();
 use Foswiki::OopsException ();
 
-our $VERSION = '5.20';
+our $VERSION = '5.21';
 our $RELEASE = '%$RELEASE%';
 our $SHORTDESCRIPTION = 'Copies webs, topics, attachments, or part of them';
 our $LICENSECODE = '%$LICENSECODE%';

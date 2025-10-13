@@ -1,4 +1,4 @@
-# Copyright (C) 2014-2019 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2014-2025 Michael Daum http://michaeldaumconsulting.com
 # This file is distributed under the same license as CopyContrib.
 # Michael Daum <daum@michaeldaumconsulting.com>, 2015.
 #

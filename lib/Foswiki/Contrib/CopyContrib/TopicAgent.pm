@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2024 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2013-2025 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -33,15 +33,18 @@ sub parseRequestObject {
   $this->{src} //= ($this->{srcWeb} && $this->{srcTopic})
                 ? "$this->{srcWeb}.$this->{srcTopic}"
                 : ($request->param('source') || $this->{baseWeb} . '.' . $this->{baseTopic});
+
   ($this->{srcWeb}, $this->{srcTopic}) = Foswiki::Func::normalizeWebTopicName($this->{baseWeb}, $this->{src})
     unless defined $this->{srcWeb} && defined $this->{srcTopic};
 
   # Preserve pre-seeded dstWeb from WebAgent; else honor explicit param; else fall back to baseWeb
   $this->{dstWeb} = $request->param('dstWeb') || $this->{dstWeb} || $this->{baseWeb};
+
   # Prefer explicit destination/dstTopic; else keep pre-seeded dstTopic; else use actual srcTopic (per item)
   my $dstParam = $request->param('destination') || $request->param('dstTopic');
   $this->{dstTopic} = defined $dstParam ? $dstParam : ($this->{dstTopic} // $this->{srcTopic});
   ($this->{dstWeb}, $this->{dstTopic}) = Foswiki::Func::normalizeWebTopicName($this->{dstWeb}, $this->{dstTopic});
+
   $this->{dstTopic} = _safeTopicName($this->{dstTopic});
   $this->{dstTopic} = $this->expandAUTOINC($this->{dstWeb}, $this->{dstTopic});
 

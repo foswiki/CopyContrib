@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="" date="1734611584" format="1.1"  version="1"}%
+%META:TOPICINFO{author="ProjectContributor" comment="" date="1760339614" format="1.1"  version="1"}%
 ---+!! %TOPIC%
 %FORMFIELD{"Description"}%
 
@@ -22,15 +22,15 @@ a copy agent is created to perform the actual operation. The basic skeleton for 
 
 <verbatim class="tml">
 <form action="%SCRIPTURLPATH{"copy"}%/%WEB%/%TOPIC%" method="post">
-  <input type="hidden" name="mode" value="topic" />
-  <input type="hidden" name="includepart" value="fields" />
-  <input type="hidden" name="includepart" value="form" />
+  <input type="hidden" name="mode" value="topic">
+  <input type="hidden" name="includepart" value="fields">
+  <input type="hidden" name="includepart" value="form">
 
-  <input type="text" name="destination" size="80" />
+  <input type="text" name="destination" size="80">
 
   <!-- more parameters -->
 
-  <input type="submit" />
+  <input type="submit">
 </form>
 </verbatim>
 
@@ -61,7 +61,7 @@ a copy agent is created to perform the actual operation. The basic skeleton for 
 | =source= | the source topic to be copied | =%<nop>BASEWEB%.%<nop>BASETOPIC%= |
 | =dstWeb= | the destination web where to copy =source= to | =%<nop>BASEWEB%= |
 | =dstTopic=, =destination= | the destination topic where to copy =source= to | =source= |
-| =includepart=, =includeparts=  | a list of parts of a topic to be copied; known part-ids are =text=, =attachments=, =all=, =preferences=, =parent=, =form=, =fields=, or any other custom meta data alias such as =comment= from [[Foswiki:Extensions/MetaCommentPlugin][MetaCommentPlugin]] | =all= |
+| =includepart=, =includeparts=  | a list of parts of a topic to be copied; known part-ids are =text=, =attachments=, =all=, =preferences=, =parent=, =form=, =fields=, or any other custom meta data alias such as =comment= from [[https://foswiki.org/Extensions/MetaCommentPlugin][MetaCommentPlugin]] | =all= |
 | =excludepart=, =excludeparts= | a list of parts to exclude from the copy process | |
 | =include&lt;part-id>= | when meta data is named as is the case for =fields= you may specify a regular expression in =includefields= that all fields must match when copying formfields | |
 | =exclude&lt;part-id>= | same as =include&lt;part-id>= but in reverse logic | |
@@ -106,56 +106,58 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 ---+++ Copy one or more topics to a destination
 <form action="%SCRIPTURLPATH{"copy"}%/%WEB%/%TOPIC%" method="post"> 
 <div class="foswikiFormSteps">
-  <input type="hidden" name="mode" value="topics" /> 
-  <input type="hidden" name="redirectto" value="%BASEWEB%.%BASETOPIC%" />
+  <input type="hidden" name="mode" value="topics"> 
+  <input type="hidden" name="redirectto" value="%BASEWEB%.%BASETOPIC%">
   <div class="foswikiFormStep">
     <h3>%MAKETEXT{"Source"}%:</h3>
-    <input type="text" name="source" size="50" />
+    <input type="text" name="source" size="50">
     <div class="foswikiGrayText">%MAKETEXT{"separate multiple topics with a comma"}%</div>
+  </div>
+  <div class="foswikiFormStep">
     <h3>%MAKETEXT{"Destination"}%:</h3>
-    <input type="text" name="destination" size="50" />
+    <input type="text" name="destination" size="50">
     <div class="foswikiGrayText">%MAKETEXT{"can be a topic or a web"}%</div>
   </div>
   <div class="foswikiFormStep">
      <h3>%MAKETEXT{"Include parts"}%:</h3>
-     <label><input type="checkbox" name="includepart" value="text" />%MAKETEXT{"Text"}%</label> %BR%
-     <label><input type="checkbox" name="includepart" value="attachments" />%MAKETEXT{"Attachments"}%</label> %BR%
-     <label><input type="checkbox" name="includepart" value="preferences" />%MAKETEXT{"Preferences"}%</label>%BR%
-     <label><input type="checkbox" name="includepart" value="parent" />%MAKETEXT{"Parent"}%</label>%BR%
-     <label><input type="checkbox" name="includeparts" value="form, fields" /> <nop>DataForm</label> %BR%
-     <label><input type="checkbox" name="includepart" value="comment" />%MAKETEXT{"Comments"}%</label> 
+     <label><input type="checkbox" name="includepart" value="text" class="foswikiCheckbox">%MAKETEXT{"Text"}%</label> %BR%
+     <label><input type="checkbox" name="includepart" value="attachments" class="foswikiCheckbox">%MAKETEXT{"Attachments"}%</label> %BR%
+     <label><input type="checkbox" name="includepart" value="preferences" class="foswikiCheckbox">%MAKETEXT{"Preferences"}%</label>%BR%
+     <label><input type="checkbox" name="includepart" value="parent" class="foswikiCheckbox">%MAKETEXT{"Parent"}%</label>%BR%
+     <label><input type="checkbox" name="includeparts" value="form, fields" class="foswikiCheckbox"> <nop>DataForm</label> %BR%
+     <label><input type="checkbox" name="includepart" value="comment" class="foswikiCheckbox">%MAKETEXT{"Comments"}%</label> 
      <div class="foswikiGrayText">%MAKETEXT{"leave unchecked to copy all"}%</div>
    </div>
    <div class="foswikiFormStep">
      <h3>%MAKETEXT{"Exclude parts"}%:</h3>
-     <label><input type="checkbox" name="excludepart" value="text" />%MAKETEXT{"Text"}%</label> %BR%
-     <label><input type="checkbox" name="excludepart" value="attachments" />%MAKETEXT{"Attachments"}%</label> %BR%
-     <label><input type="checkbox" name="excludepart" value="preferences" />%MAKETEXT{"Preferences"}%</label> %BR%
-     <label><input type="checkbox" name="excludepart" value="parent" />%MAKETEXT{"Parent"}%</label>%BR%
-     <label><input type="checkbox" name="excludeparts" value="form, fields" /> <nop>DataForm</label> %BR%
-     <label><input type="checkbox" name="excludepart" value="comment" />%MAKETEXT{"Comments"}%</label>
+     <label><input type="checkbox" name="excludepart" value="text" class="foswikiCheckbox">%MAKETEXT{"Text"}%</label> %BR%
+     <label><input type="checkbox" name="excludepart" value="attachments" class="foswikiCheckbox">%MAKETEXT{"Attachments"}%</label> %BR%
+     <label><input type="checkbox" name="excludepart" value="preferences" class="foswikiCheckbox">%MAKETEXT{"Preferences"}%</label> %BR%
+     <label><input type="checkbox" name="excludepart" value="parent" class="foswikiCheckbox">%MAKETEXT{"Parent"}%</label>%BR%
+     <label><input type="checkbox" name="excludeparts" value="form, fields" class="foswikiCheckbox"> <nop>DataForm</label> %BR%
+     <label><input type="checkbox" name="excludepart" value="comment" class="foswikiCheckbox">%MAKETEXT{"Comments"}%</label>
    </div>
    <div class="foswikiFormStep">
      <h3>%MAKETEXT{"Options"}%:</h3>
-     <label><input type="checkbox" name="onlynew" value="off">%MAKETEXT{"Allow overwrite"}%</label> %BR%
-     <label><input type="checkbox" name="forcenewrevision" value="off">%MAKETEXT{"Force a new revision"}%</label> %BR%
-     <label><input type="checkbox" name="minor" value="off">%MAKETEXT{"Minor change, don't notify others"}%</label> %BR%
-     <label><input type="checkbox" name="dontlog" value="off">%MAKETEXT{"Don't log changes"}%</label> %BR%
-     <label><input type="checkbox" name="clear" value="on">%MAKETEXT{"Clear before copying"}%</label>
+     <label><input type="checkbox" name="onlynew" value="off" class="foswikiCheckbox">%MAKETEXT{"Allow overwrite"}%</label> %BR%
+     <label><input type="checkbox" name="forcenewrevision" value="off" class="foswikiCheckbox">%MAKETEXT{"Force a new revision"}%</label> %BR%
+     <label><input type="checkbox" name="minor" value="off" class="foswikiCheckbox">%MAKETEXT{"Minor change, don't notify others"}%</label> %BR%
+     <label><input type="checkbox" name="dontlog" value="off" class="foswikiCheckbox">%MAKETEXT{"Don't log changes"}%</label> %BR%
+     <label><input type="checkbox" name="clear" value="on" class="foswikiCheckbox">%MAKETEXT{"Clear before copying"}%</label>
   </div>
   <div class="foswikiFormStep">
     <h3>%MAKETEXT{"Advanced Options"}%:</h3>
     <table class='foswikiLayoutTable'>
     <tr>
       <th>%MAKETEXT{"From Version"}%</th>
-      <td><input type="text" name="fromrev" class="foswikiInputField" value="%REVINFO{format="$rev" rev="%URLPARAM{"rev"}%"}%" size="3" /></td>
+      <td><input type="text" name="fromrev" class="foswikiInputField" value="%REVINFO{format="$rev" rev="%URLPARAM{"rev"}%"}%" size="3"></td>
     </tr>
     <tr>
       <th>%MAKETEXT{"To Version"}%</th>
-      <td><input type="text" name="torev" class="foswikiInputField" value="%REVINFO{format="$rev" rev="%URLPARAM{"rev"}%"}%" size="3" /></td>
+      <td><input type="text" name="torev" class="foswikiInputField" value="%REVINFO{format="$rev" rev="%URLPARAM{"rev"}%"}%" size="3"></td>
     </tr>
     </table>
-    <label><input type="checkbox" name="preservetopicinfo" value="on" checked />%MAKETEXT{"Preserver author and revision information"}%</label>
+    <label><input type="checkbox" name="preservetopicinfo" value="on" checked  class="foswikiCheckbox"/>%MAKETEXT{"Preserver author and revision information"}%</label>
   </div>
   <div class="foswikiFormStep">
     %BUTTON{"%MAKETEXT{"Submit"}%" icon="tick" type="submit"}%%CLEAR%
@@ -168,20 +170,24 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 ---+++ Copy a web but strip all comments
 <form action="%SCRIPTURLPATH{"copy"}%/%WEB%/%TOPIC%" method="post"> 
 <div class="foswikiFormSteps">
-  <input type="hidden" name="mode" value="web" /> 
-  <input type="hidden" name="onlynew" value="off" />
-  <input type="hidden" name="clear=" value="on" />
-  <input type="hidden" name="excludepart" value="comment" />
-  <input type="hidden" name="exclude=" value="^Web.*" />
+  <input type="hidden" name="mode" value="web"> 
+  <input type="hidden" name="onlynew" value="off">
+  <input type="hidden" name="clear=" value="on">
+  <input type="hidden" name="excludepart" value="comment">
+  <input type="hidden" name="exclude=" value="^Web.*">
   <div class="foswikiFormStep">
     <h3>%MAKETEXT{"Source"}%:</h3>
-    <input type="text" name="source" size="50" />
+    <input type="text" name="source" size="50">
     <div class="foswikiGrayText">%MAKETEXT{"specify source web"}%</div>
+  </div>
+  <div class="foswikiFormStep">
     <h3>%MAKETEXT{"Filter"}%:</h3>
-    <input type="text" name="search" size="50" />
+    <input type="text" name="search" size="50">
     <div class="foswikiGrayText">%MAKETEXT{"specify a search query"}%</div>
+  </div>
+  <div class="foswikiFormStep">
     <h3>%MAKETEXT{"Destination"}%:</h3>
-    <input type="text" name="destination" size="50" />
+    <input type="text" name="destination" size="50">
     <div class="foswikiGrayText">%MAKETEXT{"specify destination web"}%</div>
   </div>
   <div class="foswikiFormStep">
@@ -199,6 +205,7 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 ---++ Change History
 
 %TABLE{columnwidths="7em" tablewidth="100%"}%
+|  13 Oct 2025: | web mode fix: respect dstWeb/dstTopic seeded by web agent (by ensastiga) |
 |  25 Jul 2024: | fixed copying topics within a system web |
 |  30 Jan 2024: | make sure all created topics start with an uppercase char |
 |  19 Jan 2024: | added support for AUTOINC targets while copying topics |
@@ -220,7 +227,7 @@ All parameters of the [[##Mode:_61topic_61][topic mode]] apply to each topic in 
 %META:FIELD{name="Release" title="Release" value="%25$RELEASE%25"}%
 %META:FIELD{name="Description" title="Description" value="%25$SHORTDESCRIPTION%25"}%
 %META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/CopyContrib"}%
-%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2013-2024, Michael Daum"}%
+%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2013-2025, Michael Daum"}%
 %META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
 %META:FIELD{name="Home" title="Home" value="https://foswiki.org/Extensions/CopyContrib"}%
 %META:FIELD{name="Support" title="Support" value="https://foswiki.org/Support/CopyContrib"}%
